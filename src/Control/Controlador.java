@@ -66,8 +66,12 @@ public class Controlador {
         }
         else {
             nomeVertice = interfaceI.recebeNomeVertice();
+            if ("Internet".equals(nomeVertice)) {
+                interfaceI.exibeMensagem("Operação abortada! O nome 'Internet' está reservado ao vértice Internet");
+                return;
+            }
         }
-        
+
         Pattern conjuntoBits = Pattern.compile("\\w");
         Matcher buscadorBits = conjuntoBits.matcher(nomeVertice);
 
