@@ -57,7 +57,7 @@ public class Controlador {
     public void adicionaVertice() {
         String tipoVertice = tipo_aparelho;
         String nomeVertice;
-        if (tipo_aparelho.equalsIgnoreCase("internet")) {
+        if (tipo_aparelho.equals("Internet")) {
             if (grafo.buscaVertice("Internet") != null || listaVertices.containsKey("Internet")) {
                 interfaceI.exibeMensagem("Vértice não adicionado! Só é permitido 1 vértice 'Internet' no grafo");
                 return;
@@ -288,8 +288,8 @@ TALVEZ NAO PRECISE MAIS DESSE METODO
         LinkedList<Vertice> vertices = grafo.getVertices();
         for (int j = 0; j < vertices.size(); j++) {
             Vertice verticeAtual = vertices.get(j);
-            String tipoVertice = "internet";
-            if (!"Internet".equalsIgnoreCase(verticeAtual.getNome())) {
+            String tipoVertice = "Internet";
+            if (!"Internet".equals(verticeAtual.getNome())) {
                 tipoVertice = verticeAtual.isTerminal() ? "computador" : "rooteador";
             }
             insereVerticeInterface(verticeAtual.getNome(), tipoVertice);
