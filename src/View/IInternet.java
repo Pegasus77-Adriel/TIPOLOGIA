@@ -38,7 +38,7 @@ public class IInternet extends IDispositivos {
      */
     @Override
     public String nomeEstilo() {
-        return "internet";
+        return "Internet";
     }
 
 }
