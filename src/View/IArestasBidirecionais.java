@@ -29,7 +29,6 @@ public class IArestasBidirecionais {
         estiloPadrao.put(mxConstants.STYLE_MOVABLE, false);
         estiloPadrao.put(mxConstants.STYLE_VERTICAL_LABEL_POSITION, mxConstants.ALIGN_BOTTOM);
         estiloPadrao.put(mxConstants.STYLE_EDITABLE, false);
-
         stylesheet.setDefaultEdgeStyle(estiloPadrao);
     }
 }
