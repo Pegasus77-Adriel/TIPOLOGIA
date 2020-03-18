@@ -30,7 +30,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class InterfacePrincipal extends JFrame {
 
     private final String extensao_padrao = "txt";
-    private final String estilo_aresta = "ArestasBidirecionais";
     private final String texto_distancia = "Distância euclidiana: ";
     private final String texto_coordenada1 = "Coordenada 1: ";
     private final String texto_coordenada2 = "Coordenada 2: ";
@@ -253,7 +252,7 @@ public class InterfacePrincipal extends JFrame {
 
     public mxCell adicionaAresta(String pesoAresta, mxCell vertice1, mxCell vertice2, boolean visibilidade) {
         grafo.getModel().beginUpdate();
-        mxCell novaAresta = (mxCell) grafo.insertEdge(grafo.getDefaultParent(), pesoAresta, pesoAresta, vertice1, vertice2, estilo_aresta);
+        mxCell novaAresta = (mxCell) grafo.insertEdge(grafo.getDefaultParent(), pesoAresta, pesoAresta, vertice1, vertice2);
         novaAresta.setVisible(visibilidade);
         reorganizaLayout();
         grafo.getModel().endUpdate();
