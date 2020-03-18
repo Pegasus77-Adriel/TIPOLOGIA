@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Classe responsável por definir a aparência das arestas na interface gráfica
  *
- * @author Marcos
+ * @author Marcos Vinícius
  */
 public class IArestasBidirecionais {
 
@@ -20,15 +20,14 @@ public class IArestasBidirecionais {
      * estilo alterado
      */
     public IArestasBidirecionais(mxGraph grafo) {
-        mxStylesheet stylesheet = grafo.getStylesheet();
-        Map<String, Object> estiloPadrao = (Map<String, Object>) stylesheet.getDefaultEdgeStyle();
-        estiloPadrao.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_CONNECTOR);
-        estiloPadrao.put(mxConstants.STYLE_STARTARROW, mxConstants.NONE);
-        estiloPadrao.put(mxConstants.STYLE_STARTARROW, mxConstants.NONE);
-        estiloPadrao.put(mxConstants.STYLE_ENDARROW, mxConstants.NONE);
-        estiloPadrao.put(mxConstants.STYLE_MOVABLE, false);
-        estiloPadrao.put(mxConstants.STYLE_VERTICAL_LABEL_POSITION, mxConstants.ALIGN_BOTTOM);
-        estiloPadrao.put(mxConstants.STYLE_EDITABLE, false);
-        stylesheet.setDefaultEdgeStyle(estiloPadrao);
+        mxStylesheet stylesheet = grafo.getStylesheet(); //Pega a tabela de estilos do grafo
+        Map<String, Object> estiloPadrao = (Map<String, Object>) stylesheet.getDefaultEdgeStyle(); //Pega o estilo padrão para as arestas
+        estiloPadrao.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_CONNECTOR); //Define que aresta agirá como um conector (é o padrão)
+        estiloPadrao.put(mxConstants.STYLE_STARTARROW, mxConstants.NONE); //Retira a seta da ponta inicial da aresta
+        estiloPadrao.put(mxConstants.STYLE_ENDARROW, mxConstants.NONE); //Retira a seta da ponta final da aresta (é o padrão)
+        estiloPadrao.put(mxConstants.STYLE_MOVABLE, false); //Impede que as arestas sejam movidas diretamente
+        estiloPadrao.put(mxConstants.STYLE_VERTICAL_LABEL_POSITION, mxConstants.ALIGN_BOTTOM); //Determina que os pesos serão exibidos em baixo de cada aresta
+        estiloPadrao.put(mxConstants.STYLE_EDITABLE, false); //Impede que as arestas tenham seu valor editado diretamente
+        stylesheet.setDefaultEdgeStyle(estiloPadrao); //Substitui o estilo padrão pelo estilo editado
     }
 }

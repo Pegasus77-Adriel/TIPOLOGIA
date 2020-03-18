@@ -56,7 +56,18 @@ public class Controlador {
 
     public void adicionaVertice() {
         String tipoVertice = tipo_aparelho;
-        String nomeVertice = interfaceI.recebeNomeVertice();
+        String nomeVertice;
+        if (tipo_aparelho.equalsIgnoreCase("internet")) {
+            if (grafo.buscaVertice("Internet") != null || listaVertices.containsKey("Internet")) {
+                interfaceI.exibeMensagem("Vértice não adicionado! Só é permitido 1 vértice 'Internet' no grafo");
+                return;
+            }
+            nomeVertice = "Internet";
+        }
+        else {
+            nomeVertice = interfaceI.recebeNomeVertice();
+        }
+        
         Pattern conjuntoBits = Pattern.compile("\\w");
         Matcher buscadorBits = conjuntoBits.matcher(nomeVertice);
 

@@ -27,6 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ *
+ * @author Marcos
+ */
 public class InterfacePrincipal extends JFrame {
 
     private final String extensao_padrao = "txt";
@@ -57,6 +61,18 @@ public class InterfacePrincipal extends JFrame {
     private ActionListener eventoAdicionar;
     private JComboBox selecaoAparelho;
 
+    /**
+     *
+     * @param eventoRemover
+     * @param eventoSair
+     * @param eventoExportar
+     * @param eventoImportar
+     * @param eventoLigar
+     * @param eventoItem
+     * @param eventoAdicionar
+     * @param eventoCliqueMouse
+     * @param eventoRodaMouse
+     */
     public InterfacePrincipal(ActionListener eventoRemover, ActionListener eventoSair,
             ActionListener eventoExportar, ActionListener eventoImportar, ActionListener eventoLigar,
             ActionListener eventoItem, ActionListener eventoAdicionar, MouseListener eventoCliqueMouse, MouseWheelListener eventoRodaMouse) {
@@ -81,6 +97,9 @@ public class InterfacePrincipal extends JFrame {
         new IArestasBidirecionais(this.grafo);
     }
 
+    /**
+     *
+     */
     public final void iniciaGUI() {
         Dimension informacoesTela = Toolkit.getDefaultToolkit().getScreenSize();
         int largura = (int) informacoesTela.getWidth();
@@ -114,23 +133,43 @@ public class InterfacePrincipal extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     *
+     * @return
+     */
     public mxGraph getPainel() {
         return this.grafo;
     }
 
+    /**
+     *
+     * @return
+     */
     public JTextField getCaixatexto() {
         return this.caixaTexto;
     }
 
+    /**
+     *
+     * @return
+     */
     public mxGraphComponent getAreaComponentes() {
         return this.areaCompGrafo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String recebeNomeVertice() {
         String nomeVertice = JOptionPane.showInputDialog("Digite o nome do vértice: ");
         return nomeVertice == null ? "" : nomeVertice;
     }
 
+    /**
+     *
+     * @return
+     */
     public String[] recebeInformacoesLigacao() {
         String nomeVertice1 = JOptionPane.showInputDialog("Digite o nome do primeiro vertice: ");
         String nomeVertice2 = JOptionPane.showInputDialog("Digite o nome do segundo vertice: ");
@@ -142,6 +181,10 @@ public class InterfacePrincipal extends JFrame {
         return informacoes;
     }
 
+    /**
+     *
+     * @return
+     */
     public String selecionaDiretorioSalvamento() {
         FileNameExtensionFilter extensoesPermitidas = new FileNameExtensionFilter(extensao_padrao, extensao_padrao);
         JFileChooser arquivo = new JFileChooser();
@@ -154,10 +197,18 @@ public class InterfacePrincipal extends JFrame {
         return null;
     }
 
+    /**
+     *
+     * @param mensagem
+     */
     public void exibeMensagem(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem);
     }
 
+    /**
+     *
+     * @return
+     */
     public String selecionaDiretorioAbertura() {
         FileNameExtensionFilter extensoesPermitidas = new FileNameExtensionFilter(extensao_padrao, extensao_padrao);
         JFileChooser arquivo = new JFileChooser();
@@ -223,6 +274,12 @@ public class InterfacePrincipal extends JFrame {
         return painel3;
     }
 
+    /**
+     *
+     * @param coordenada1
+     * @param coordenada2
+     * @param novaDistancia
+     */
     public void exibeNovaDistanciaEuclidiana(String coordenada1, String coordenada2, String novaDistancia) {
         String espaco = "                  ";
         this.distanciaEuclidiana.setText(texto_coordenada1 + coordenada1 + espaco + texto_coordenada2 + coordenada2 + espaco + texto_distancia + novaDistancia);
@@ -238,10 +295,22 @@ public class InterfacePrincipal extends JFrame {
         this.setIconImage(novoIcone.getImage());
     }
 
+    /**
+     *
+     * @return
+     */
     public String getConteudoCombobox() {
         return (String) selecaoAparelho.getSelectedItem();
     }
 
+    /**
+     *
+     * @param nomeVertice
+     * @param larguraVertice
+     * @param alturaVertice
+     * @param tipoVertice
+     * @return
+     */
     public mxCell adicionaVertice(String nomeVertice, int larguraVertice, int alturaVertice, String tipoVertice) {
         grafo.getModel().beginUpdate();
         mxCell novoVertice = (mxCell) grafo.insertVertex(grafo.getDefaultParent(), nomeVertice, nomeVertice, this.posicao_X, this.posicao_Y, larguraVertice, alturaVertice, tipoVertice);
@@ -250,6 +319,14 @@ public class InterfacePrincipal extends JFrame {
         return novoVertice;
     }
 
+    /**
+     *
+     * @param pesoAresta
+     * @param vertice1
+     * @param vertice2
+     * @param visibilidade
+     * @return
+     */
     public mxCell adicionaAresta(String pesoAresta, mxCell vertice1, mxCell vertice2, boolean visibilidade) {
         grafo.getModel().beginUpdate();
         mxCell novaAresta = (mxCell) grafo.insertEdge(grafo.getDefaultParent(), pesoAresta, pesoAresta, vertice1, vertice2);
@@ -267,6 +344,11 @@ public class InterfacePrincipal extends JFrame {
         novaOrganizacao.execute(grafo.getDefaultParent());
     }
 
+    /**
+     *
+     * @param celula
+     * @return
+     */
     public mxCell removeCelula(mxICell celula) {
         grafo.getModel().beginUpdate();
         mxCell removida = (mxCell) grafo.getModel().remove(celula);
