@@ -260,7 +260,7 @@ public class InterfacePrincipal extends JFrame {
         JLabel selecioneItem = new JLabel("Selecione um item:     ");
         painel3.add(selecioneItem);
 
-        String[] aparelhos = {"computador", "internet", "rooteador"};
+        String[] aparelhos = {"computador", "Internet", "rooteador"};
         selecaoAparelho = new JComboBox(aparelhos);
         selecaoAparelho.setSelectedIndex(0);
         selecaoAparelho.addActionListener(eventoItem);
