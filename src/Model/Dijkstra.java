@@ -12,14 +12,27 @@ public class Dijkstra {
     private Grafo distanciaQ; //Lista de vértices antes de passar pelo Dijkstra
     private Grafo distanciaS; //Lista de vértices depois de passar pelo Dijkstra
     private LinkedList <Vertice> listaVisitados;
+    
+    /**
+     * Recebe um vertice de partida e o grafo, e encontra o menor caminho
+     * 
+     * @param pontoPartida Vertice do ponto de partida
+     * @param conjuntoVertices Grafo com o conjunto de todos os vertices
+     * 
+     * @return A sequência dos vertices do menor caminho
+    */
 
     public Grafo obtemMenoresCaminhos(Vertice pontoPartida, Grafo conjuntoVertices) {
         if (conjuntoVertices.estaVazio()) {
-            return null;
+            return null; // Retorna nulo se o grafo estiver vazio
+            
         }
-        listaVisitados = new LinkedList();
+        listaVisitados = new LinkedList(); 
         distanciaQ = conjuntoVertices;
-        reinicializaNos(pontoPartida, distanciaQ);
+        reinicializaNos(pontoPartida, distanciaQ); 
+        // A linha acima inicia a lista de custos do vertice de partida
+        // em relação todos os outros
+        
         distanciaS = new Grafo();
         while (!distanciaQ.estaVazio()) {
             Vertice minimo = extraiMinimo(distanciaQ);
@@ -39,7 +52,11 @@ public class Dijkstra {
         }
         return distanciaS;
     }
-
+    /**
+     * Método que reinicializa a lista de custos dos vertices
+     * @param origem Vertice referencial
+     * @param distanciaQ Lista de custos
+     */
     private void reinicializaNos(Vertice origem, Grafo distanciaQ) {
         LinkedList<Vertice> vertices = distanciaQ.getVertices();
         for (int i = 0; i < vertices.size(); i++) {
@@ -61,7 +78,11 @@ public class Dijkstra {
             }
         }
     }
-
+    /**
+     * Método que busca o vertice com a menor distância
+     * @param distanciaQ
+     * @return Retorna o vertice com a menor distância
+     */
     private Vertice extraiMinimo(Grafo distanciaQ) {
         if (!distanciaQ.estaVazio()) {
             LinkedList<Vertice> vertices = distanciaQ.getVertices();
@@ -79,9 +100,13 @@ public class Dijkstra {
             listaVisitados.add(minimo);
             return minimo;
         }
-        return null;
+        return null; // Retorna null caso não haja vertices
     }
-
+    /**
+     * Método que constroi vetores de aresta
+     * @param minimo Verticie com distância menor
+     * @return Retorna um vetor com o tamanho da aresta
+     */
     private Aresta[] constroiVetorArestas(Vertice minimo) {
         int tamanho = minimo.getArestas().size();
         Aresta[] vetor = new Aresta[tamanho];
