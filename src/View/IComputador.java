@@ -22,7 +22,7 @@ public class IComputador extends IDispositivos {
 
     /**
      * Informa caminho onde está contida a imagem correspondente ao computador
-     * @return retorna o caminho da imagem onde está a imagem a ser usada pela superclasse
+     * @return retorna o caminho onde estará a imagem a ser usada pela superclasse
      */
     @Override
     public String caminhoImagem() {

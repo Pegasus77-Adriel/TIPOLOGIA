@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  *
- * @author Marcos
+ * @author Marcos Vinícius
  */
 public class IInternet extends IDispositivos {
 
@@ -14,7 +14,8 @@ public class IInternet extends IDispositivos {
      * Classe responsável por encaminhar uma imagem apropriada para representar
      * a internet
      *
-     * @param grafo
+     * @param grafo Componente da interface gráfica usado para exibir
+     * graficamente o grafo
      */
     public IInternet(mxGraph grafo) {
         super(grafo);
@@ -24,8 +25,10 @@ public class IInternet extends IDispositivos {
     }
 
     /**
+     * Informa caminho onde está contida a imagem correspondente a internet
      *
-     * @return
+     * @return retorna o caminho onde estará a imagem a ser usada pela
+     * superclasse
      */
     @Override
     public String caminhoImagem() {
@@ -33,8 +36,9 @@ public class IInternet extends IDispositivos {
     }
 
     /**
+     * Informa o nome do estilo para os vértices que representarão a internet
      *
-     * @return
+     * @return Retorna o nome do estilo Internet
      */
     @Override
     public String nomeEstilo() {

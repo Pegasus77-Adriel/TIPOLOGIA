@@ -1,7 +1,3 @@
-/* Edited by Diego Pedro Gonçalves da Silva
- * 
- * 
- */
 package View;
 
 import com.mxgraph.layout.mxFastOrganicLayout;
@@ -29,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Marcos
+ * @author Marcos Vinícius
  */
 public class InterfacePrincipal extends JFrame {
 
@@ -37,15 +33,16 @@ public class InterfacePrincipal extends JFrame {
     private final String texto_distancia = "Distância euclidiana: ";
     private final String texto_coordenada1 = "Coordenada 1: ";
     private final String texto_coordenada2 = "Coordenada 2: ";
-    private final int posicao_X = 300;
-    private final int posicao_Y = 50;
+    private final int posicao_X = 300; //Posição onde será inserido um vértice
+    private final int posicao_Y = 50;  //Posição onde será inserido um vértice
 
-    private mxGraph grafo;
-    private mxGraphComponent areaCompGrafo;
+    private mxGraph grafo; //Componente responsável por gerênciar a parte gráfica que representa o grafo
+    private mxGraphComponent areaCompGrafo; //Área da parte gráfica destinada aos componentes
     private JTextField caixaTexto;
     private JButton botaoAdd;
     private JButton botaoDel;
     private JButton botaoLigar;
+    private JComboBox selecaoAparelho;
 
     private JLabel distanciaEuclidiana;
 
@@ -59,7 +56,6 @@ public class InterfacePrincipal extends JFrame {
     private ActionListener eventoLigar;
     private ActionListener eventoItem;
     private ActionListener eventoAdicionar;
-    private JComboBox selecaoAparelho;
 
     /**
      *
@@ -349,6 +345,7 @@ public class InterfacePrincipal extends JFrame {
      * @param celula
      * @return
      */
+    
     public mxCell removeCelula(mxICell celula) {
         grafo.getModel().beginUpdate();
         mxCell removida = (mxCell) grafo.getModel().remove(celula);
