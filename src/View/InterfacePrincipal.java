@@ -1,7 +1,3 @@
-/* Edited by Diego Pedro Gonçalves da Silva
- * 
- * 
- */
 package View;
 
 import com.mxgraph.layout.mxFastOrganicLayout;
@@ -28,8 +24,10 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
+ * Classe responsável pela interface gráfica e pelos componentes visuais do
+ * grafo
  *
- * @author Marcos
+ * @author Marcos Vinícius
  */
 public class InterfacePrincipal extends JFrame {
 
@@ -37,16 +35,16 @@ public class InterfacePrincipal extends JFrame {
     private final String texto_distancia = "Distância euclidiana: ";
     private final String texto_coordenada1 = "Coordenada 1: ";
     private final String texto_coordenada2 = "Coordenada 2: ";
-    private final int posicao_X = 300;
-    private final int posicao_Y = 50;
+    private final int posicao_X = 300; //Posição onde será inserido um vértice
+    private final int posicao_Y = 50;  //Posição onde será inserido um vértice
 
-    private mxGraph grafo;
-    private mxGraphComponent areaCompGrafo;
+    private mxGraph grafo; //Componente responsável por gerênciar a parte gráfica que representa o grafo
+    private mxGraphComponent areaCompGrafo; //Área da parte gráfica destinada aos componentes
     private JTextField caixaTexto;
     private JButton botaoAdd;
     private JButton botaoDel;
     private JButton botaoLigar;
-
+    private JComboBox selecaoAparelho;
     private JLabel distanciaEuclidiana;
 
     //Lista de eventos pré-programados:
@@ -59,24 +57,30 @@ public class InterfacePrincipal extends JFrame {
     private ActionListener eventoLigar;
     private ActionListener eventoItem;
     private ActionListener eventoAdicionar;
-    private JComboBox selecaoAparelho;
 
     /**
+     * Instancia os recursos necessários para a apresentação gráfica e
+     * inicializa as variáveis responsáveis pelos eventos da interface
      *
-     * @param eventoRemover
-     * @param eventoSair
-     * @param eventoExportar
-     * @param eventoImportar
-     * @param eventoLigar
-     * @param eventoItem
-     * @param eventoAdicionar
-     * @param eventoCliqueMouse
-     * @param eventoRodaMouse
+     * @param eventoRemover Evento que inicia o processo de remoção de uma
+     * célula
+     * @param eventoSair Evento que inicia o processo de saída do programa
+     * @param eventoExportar Evento que inicia o processo de exportação de dados
+     * @param eventoImportar Evento que inicia o processo de importação de dados
+     * @param eventoLigar Evento que inicia o processo de inserção de arestas
+     * @param eventoItem Evento que fornece informações sobre o tipo de vértice
+     * que o usuário deseja adicionar
+     * @param eventoAdicionar Evento que inicia o processo de inserção de
+     * vértice
+     * @param eventoCliqueMouse Evento que pode iniciar outros eventos com base
+     * nas ações do mouse
+     * @param eventoRodaMouse Evento que inicia o processo de zoom
      */
     public InterfacePrincipal(ActionListener eventoRemover, ActionListener eventoSair,
             ActionListener eventoExportar, ActionListener eventoImportar, ActionListener eventoLigar,
             ActionListener eventoItem, ActionListener eventoAdicionar, MouseListener eventoCliqueMouse, MouseWheelListener eventoRodaMouse) {
-        super("WillFall Tipologias - Versão 1.7"); //Título da janela principal
+        
+        super("WillFall Tipologias - Versão 1.8"); //Título da janela principal
         this.defineIcone();
 
         this.eventoAdicionar = eventoAdicionar;
@@ -98,10 +102,10 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
-     *
+     * Inicializa a maior parte dos componentes gráficos e os exibe ao usuário
      */
     public final void iniciaGUI() {
-        Dimension informacoesTela = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension informacoesTela = Toolkit.getDefaultToolkit().getScreenSize(); //Permite saber a resolução da tela
         int largura = (int) informacoesTela.getWidth();
         int altura = (int) informacoesTela.getHeight();
         setSize(largura, altura); //Define a resolução da janela
@@ -120,21 +124,18 @@ public class InterfacePrincipal extends JFrame {
         this.add(painelLinha3());
         this.pack(); //Compacta os espaços entre os componentes da janela para otimizar o espaço
 
-        areaCompGrafo.setConnectable(false);
-        areaCompGrafo.setSwimlaneSelectionEnabled(true);
-        areaCompGrafo.setSwimlaneSelectionEnabled(true);
-        areaCompGrafo.setFocusable(false);
-
-        areaCompGrafo.setBackground(Color.WHITE);
-        areaCompGrafo.getViewport().setOpaque(false);
+        areaCompGrafo.setConnectable(false); //Impede a ligação de vértices através do mouse
+        areaCompGrafo.setDragEnabled(false); //Altera o modo de arrastar pelo mouse
+        areaCompGrafo.setBackground(Color.WHITE); //Define a cor branca para o fundo do grafo
+        areaCompGrafo.getViewport().setOpaque(false); //Impede que o fundo do grafo seja transparente
 
         defineAcoesMouse();
         this.setLocationRelativeTo(null); //Posiciona a janela no centro da tela
-        this.setVisible(true);
+        this.setVisible(true); //Torna a janela visível
     }
 
     /**
-     *
+     * Retorna o 
      * @return
      */
     public mxGraph getPainel() {
