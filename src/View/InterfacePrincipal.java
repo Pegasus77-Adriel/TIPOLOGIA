@@ -79,7 +79,7 @@ public class InterfacePrincipal extends JFrame {
     public InterfacePrincipal(ActionListener eventoRemover, ActionListener eventoSair,
             ActionListener eventoExportar, ActionListener eventoImportar, ActionListener eventoLigar,
             ActionListener eventoItem, ActionListener eventoAdicionar, MouseListener eventoCliqueMouse, MouseWheelListener eventoRodaMouse) {
-        
+
         super("WillFall Tipologias - Versão 1.8"); //Título da janela principal
         this.defineIcone();
 
@@ -135,32 +135,31 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
-     * Retorna o 
-     * @return
+     * Fornece o acesso ao componente gráfico responsável por gerenciar os
+     * elementos gráficos de um grafo (vértices e arestas)
+     *
+     * @return Retorna o componente grafico de gerenciamento do grafo
      */
     public mxGraph getPainel() {
         return this.grafo;
     }
 
     /**
+     * Permite o acesso à área onde os elementos gráficos do grafo serão
+     * posicionados
      *
-     * @return
-     */
-    public JTextField getCaixatexto() {
-        return this.caixaTexto;
-    }
-
-    /**
-     *
-     * @return
+     * @return Retorna a área onde os elementos gráficos estarão posicionados
      */
     public mxGraphComponent getAreaComponentes() {
         return this.areaCompGrafo;
     }
 
     /**
+     * Permite que o usuário insira o nome de um vértice que ele deseja
+     * adicionar ao sistema
      *
-     * @return
+     * @return Retorna o nome do novo vértice que acaba de ser inserido pelo
+     * usuário ou retorna null caso o usuário cancele a seleção
      */
     public String recebeNomeVertice() {
         String nomeVertice = JOptionPane.showInputDialog("Digite o nome do vértice: ");
@@ -168,8 +167,10 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Permite que o usuário insira informações sobre o a aresta que ele deseja
+     * adicionar ao sistema
      *
-     * @return
+     * @return Retorna um vetor contendo as informações da aresta em questão
      */
     public String[] recebeInformacoesLigacao() {
         String nomeVertice1 = JOptionPane.showInputDialog("Digite o nome do primeiro vertice: ");
@@ -183,8 +184,11 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Permite que o usuário escolha um diretório para salvamento do arquivo de
+     * configuração
      *
-     * @return
+     * @return Retorna o caminho para onde deverá ser criado o arquivo de
+     * configuração ou retorna null caso o usuário cancele a seleção
      */
     public String selecionaDiretorioSalvamento() {
         FileNameExtensionFilter extensoesPermitidas = new FileNameExtensionFilter(extensao_padrao, extensao_padrao);
@@ -199,16 +203,19 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Permite que uma mensagem informativa seja exibida ao usuário
      *
-     * @param mensagem
+     * @param mensagem Conteúdo que será exibido pela mensagem
      */
     public void exibeMensagem(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem);
     }
 
     /**
+     * Permite que o usuário selecione o diretório de um arquivo de configuração
+     * (em .txt)
      *
-     * @return
+     * @return retorna o caminho do arquivo de texto de configuração
      */
     public String selecionaDiretorioAbertura() {
         FileNameExtensionFilter extensoesPermitidas = new FileNameExtensionFilter(extensao_padrao, extensao_padrao);
@@ -219,6 +226,12 @@ public class InterfacePrincipal extends JFrame {
         return arquivo.getSelectedFile() == null ? null : arquivo.getSelectedFile().getAbsolutePath();
     }
 
+    /**
+     * Cria um novo painel onde estarão arranjados alguns componentes como
+     * botões, caixas de texto, etc.
+     *
+     * @return Retorna o painel criado
+     */
     private JPanel painelLinha1() {
         JPanel painel1 = new JPanel();
         painel1.setLayout(new BoxLayout(painel1, BoxLayout.X_AXIS));
@@ -246,6 +259,12 @@ public class InterfacePrincipal extends JFrame {
         return painel1;
     }
 
+    /**
+     * Cria um novo painel onde estarão arranjados alguns componentes como
+     * botões, caixas de texto, etc.
+     *
+     * @return Retorna o painel criado
+     */
     private JPanel painelLinha2() {
         JPanel painel2 = new JPanel();
         painel2.setLayout(new BoxLayout(painel2, BoxLayout.X_AXIS));
@@ -254,6 +273,12 @@ public class InterfacePrincipal extends JFrame {
         return painel2;
     }
 
+    /**
+     * Cria um novo painel onde estarão arranjados alguns componentes como
+     * botões, caixas de texto, etc.
+     *
+     * @return Retorna o painel criado
+     */
     private JPanel painelLinha3() {
         JPanel painel3 = new JPanel();
         painel3.setLayout(new BoxLayout(painel3, BoxLayout.X_AXIS));
@@ -276,41 +301,52 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Exibe, para o usuário, informações sobre a distância euclidiana entre
+     * dois pontos da janela em que ele clicou consecutivamente
      *
-     * @param coordenada1
-     * @param coordenada2
-     * @param novaDistancia
+     * @param coordenada1 Informações sobre a coordenada do primeiro ponto
+     * @param coordenada2 Informações sobre a coordenada do segundo ponto
+     * @param novaDistancia Distância euclidianada entre os dois pontos
+     * selecionados
      */
     public void exibeNovaDistanciaEuclidiana(String coordenada1, String coordenada2, String novaDistancia) {
         String espaco = "                  ";
         this.distanciaEuclidiana.setText(texto_coordenada1 + coordenada1 + espaco + texto_coordenada2 + coordenada2 + espaco + texto_distancia + novaDistancia);
     }
 
+    /**
+     * Define quais serão os eventos do mouse
+     */
     private void defineAcoesMouse() {
         areaCompGrafo.getGraphControl().addMouseListener(eventoCliqueMouse);
         areaCompGrafo.addMouseWheelListener(eventoRodaMouse);
     }
 
+    /**
+     * Define um ícone para o programa
+     */
     private void defineIcone() {
         ImageIcon novoIcone = new ImageIcon("icone.png");
         this.setIconImage(novoIcone.getImage());
     }
 
     /**
+     * Fornece o conteúdo oculto em uma combobox
      *
-     * @return
+     * @return Retorna "computador", "rooteador" ou "Internet"
      */
     public String getConteudoCombobox() {
         return (String) selecaoAparelho.getSelectedItem();
     }
 
     /**
+     * Adiciona um novo vértice na interface gráfica
      *
-     * @param nomeVertice
-     * @param larguraVertice
-     * @param alturaVertice
-     * @param tipoVertice
-     * @return
+     * @param nomeVertice Nome do novo vértice
+     * @param larguraVertice Largura do novo vértice
+     * @param alturaVertice Altura do novo vértice
+     * @param tipoVertice Tipo do vértice
+     * @return Retorna o vértice criado
      */
     public mxCell adicionaVertice(String nomeVertice, int larguraVertice, int alturaVertice, String tipoVertice) {
         grafo.getModel().beginUpdate();
@@ -321,12 +357,14 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Adiciona uma nova aresta na interface gráfica
      *
-     * @param pesoAresta
-     * @param vertice1
-     * @param vertice2
-     * @param visibilidade
-     * @return
+     * @param pesoAresta Peso da aresta
+     * @param vertice1 Vértice-origem
+     * @param vertice2 Vértice-destino
+     * @param visibilidade Visibilidade da aresta (true=visível,
+     * false=invisível)
+     * @return Retorna a aresta criada
      */
     public mxCell adicionaAresta(String pesoAresta, mxCell vertice1, mxCell vertice2, boolean visibilidade) {
         grafo.getModel().beginUpdate();
@@ -337,6 +375,10 @@ public class InterfacePrincipal extends JFrame {
         return novaAresta;
     }
 
+    /**
+     * Reorganiza os vértices da interface gráfica de modo que eles não se
+     * sobreponham
+     */
     private void reorganizaLayout() {
         mxFastOrganicLayout novaOrganizacao = new mxFastOrganicLayout(grafo);
         novaOrganizacao.setMinDistanceLimit(0.02);
@@ -346,9 +388,10 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Revoce uma célula (vértice, aresta, etc.) da interface gráfica
      *
-     * @param celula
-     * @return
+     * @param celula célula que será removida da interface
+     * @return Retorna a célula removida ou null caso nada tenha sido removido
      */
     public mxCell removeCelula(mxICell celula) {
         grafo.getModel().beginUpdate();
