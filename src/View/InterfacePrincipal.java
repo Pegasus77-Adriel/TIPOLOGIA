@@ -419,7 +419,8 @@ public class InterfacePrincipal extends JFrame {
 
     public int exibeDialogoImportArquivo() {
         Object[] opcoes = {"Substituir configuração atual", "Mesclar configurações", "Cancelar importação"};
-        return (JOptionPane.showOptionDialog(null, "Você está tentando importar uma nova configuração enquanto outra já está sendo exibida!\n Escolha o que fazer após sobre a nova importação: ", "Aviso",
+        return (JOptionPane.showOptionDialog(null, "Você está tentando importar uma nova configuração enquanto outra já está sendo exibida!"
+                + "\n Escolha o que fazer sobre a nova importação: ", "Aviso",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                 null, opcoes, opcoes[0]));
 
