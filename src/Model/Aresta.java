@@ -1,16 +1,29 @@
 package Model;
 
+/**
+ *
+ * @author Adryel
+ */
 public class Aresta {
     
     private  int peso;
     private  Vertice fim;
     
-    // Retorna o Peso da Aresta
+
+    /**
+     * Retorna o peso da aresta
+     * @return Retorna o peso da aresta
+     */
     public int getPeso() {
         return peso;
     }
     
-    // Metódo Construtor
+
+    /**
+     * Metódo Construtor
+     * @param peso Peso para nova aresta
+     * @param fim Vertice final para nova aresta
+     */
     public Aresta(int peso, Vertice fim) {
         
         this.peso = peso;
@@ -18,7 +31,12 @@ public class Aresta {
     }
     
 
-    // Retorna o Vertice Final da Aresta
+   
+
+    /**
+     * Retorna o vertice final da aresta
+     * @return Retorna vertice final aresta
+     */
     public Vertice getFim() {
         return fim;
     }
