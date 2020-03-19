@@ -5,7 +5,6 @@
  */
 package Model;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,10 +23,20 @@ import java.util.LinkedList;
 public class Arquivo {
 
     private static final String separador_Informacoes_Vertice = ",";
-    protected static String CODIFICACAO_PARA_TRANSCRICAO_DE_DADOS = "ISO-8859-1";
+    private static String CODIFICACAO_PARA_TRANSCRICAO_DE_DADOS = "ISO-8859-1";
     private static final String texto_Cabecalho = "Arquivo de configuração:"
             + "\nNo_Inicio,Terminal,Destino,Peso\n";
 
+    /**
+     * Cria arquivo através das informações contidas na estrutura Grafo
+     *
+     * @param caminho Diretório onde será criado o arquivo
+     * @param grafo Estrutura que forncerá seus dados para a criação do arquivo
+     * de texto
+     * @return Retorna true para a criação bem-sucedida ou false caso-contrário
+     * @throws java.io.IOException Erro atribuído aos problemas na abertura do
+     * arquivo de texto
+     */
     public static boolean trasfereParaArquivo(String caminho, Grafo grafo) throws IOException, ExceptionInInitializerError {
         try {
             if (grafo.estaVazio()) {
@@ -84,10 +93,10 @@ public class Arquivo {
     }
 
     /**
-     * Lê arquivo, analisa seus dados e os transfere para a lista de adjacência
+     * Lê arquivo, analisa seus dados e os transfere para o grafo
      *
      * @param diretorio Diretório do arquivo de texto
-     * @param grafo Matriz que receberá os dados do arquivo
+     * @param grafo Estrutura que receberá os dados do arquivo
      * @throws java.io.FileNotFoundException Diretório não existe
      * @throws java.io.IOException Erro atribuído aos problemas na abertura do
      * arquivo de texto
