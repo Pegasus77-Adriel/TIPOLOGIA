@@ -32,7 +32,7 @@ public abstract class IDispositivos extends mxImageBundle {
 
         estilo.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_IMAGE); //Define que o vértice agora será como uma imagem
         estilo.put(mxConstants.STYLE_RESIZABLE, false); //Impede o vértice de ser redimensionado
-        estilo.put(mxConstants.STYLE_FONTSIZE, 14); //Muda o tamanho da fonte do nome do vértice
+            estilo.put(mxConstants.STYLE_FONTSIZE, 14); //Muda o tamanho da fonte do nome do vértice
         estilo.put(mxConstants.STYLE_FONTCOLOR, Color.BLACK); //Muda o estilo da fonte do nome do vértice
         estilo.put(mxConstants.STYLE_FONTSTYLE, mxConstants.FONT_BOLD); //Define a fonte do nome do vértice como negrito
         estilo.put(mxConstants.STYLE_IMAGE, caminhoImagem); //Define qual imagem preencherá o vértice
