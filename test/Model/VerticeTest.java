@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Marcos
  */
-public class VerticeIT {
+public class VerticeTest {
     
-    public VerticeIT() {
+    public VerticeTest() {
     }
     
     @BeforeClass

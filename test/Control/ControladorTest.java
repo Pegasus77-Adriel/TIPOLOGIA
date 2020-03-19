@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Marcos
  */
-public class ControladorIT {
+public class ControladorTest {
     
-    public ControladorIT() {
+    public ControladorTest() {
     }
     
     @BeforeClass

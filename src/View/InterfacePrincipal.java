@@ -136,16 +136,6 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
-     * Fornece o acesso ao componente gráfico responsável por gerenciar os
-     * elementos gráficos de um grafo (vértices e arestas)
-     *
-     * @return Retorna o componente grafico de gerenciamento do grafo
-     */
-    public mxGraph getPainel() {
-        return this.grafo;
-    }
-
-    /**
      * Permite o acesso à área onde os elementos gráficos do grafo serão
      * posicionados
      *
@@ -424,5 +414,13 @@ public class InterfacePrincipal extends JFrame {
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                 null, opcoes, opcoes[0]));
 
+    }
+
+    public void removeCelecao(mxCell selecionada) {
+        grafo.removeSelectionCell(selecionada);
+    }
+
+    public void insereSelecao(Object[] caminhos) {
+        grafo.setSelectionCells(caminhos);
     }
 }

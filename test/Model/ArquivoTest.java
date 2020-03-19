@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Marcos
  */
-public class ArquivoIT {
+public class ArquivoTest {
     
-    public ArquivoIT() {
+    public ArquivoTest() {
     }
     
     @BeforeClass

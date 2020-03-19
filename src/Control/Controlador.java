@@ -160,6 +160,7 @@ public class Controlador {
             if (celula.isVertex()) {
                 removeArestasDeVertice(celula);
                 removeVertice(celula);
+                interfaceI.insereSelecao(null); //Tem o efeito colateral de descelecionar os vértices
                 interfaceI.exibeMensagem("Vértice removido com sucesso!");
             }
         }
@@ -263,7 +264,7 @@ public class Controlador {
 
     public void removeSelecao(int x, int y) {
         mxCell selecionada = (mxCell) interfaceI.getAreaComponentes().getCellAt(x, y);
-        interfaceI.getPainel().removeSelectionCell(selecionada);
+        interfaceI.removeCelecao(selecionada);
     }
 
     public void importaConfiguracoes() {
@@ -381,7 +382,7 @@ public class Controlador {
             verticeAtual = verticeAtual.getVerticeAntecessor();
         }
         novoCaminho += "\n";
-        interfaceI.getPainel().setSelectionCells(listaCaminhos);
+        interfaceI.insereSelecao(listaCaminhos.toArray());
         return novoCaminho;
     }
 

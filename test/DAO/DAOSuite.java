@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package DAO;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,8 +17,8 @@ import org.junit.runners.Suite;
  * @author Marcos
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Control.principalIT.class, Control.ControladorIT.class})
-public class ControlITSuite {
+@Suite.SuiteClasses({DAO.GrafoDAOTest.class})
+public class DAOSuite {
 
     @BeforeClass
     public static void setUpClass() throws Exception {

@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Marcos
  */
-public class GrafoIT {
+public class GrafoTest {
     
-    public GrafoIT() {
+    public GrafoTest() {
     }
     
     @BeforeClass

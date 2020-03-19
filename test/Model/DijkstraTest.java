@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Marcos
  */
-public class ArestaIT {
+public class DijkstraTest {
     
-    public ArestaIT() {
+    public DijkstraTest() {
     }
     
     @BeforeClass
@@ -38,28 +38,16 @@ public class ArestaIT {
     }
 
     /**
-     * Test of getPeso method, of class Aresta.
+     * Test of obtemMenoresCaminhos method, of class Dijkstra.
      */
     @Test
-    public void testGetPeso() {
-        System.out.println("getPeso");
-        Aresta instance = null;
-        int expResult = 0;
-        int result = instance.getPeso();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getFim method, of class Aresta.
-     */
-    @Test
-    public void testGetFim() {
-        System.out.println("getFim");
-        Aresta instance = null;
-        Vertice expResult = null;
-        Vertice result = instance.getFim();
+    public void testObtemMenoresCaminhos() {
+        System.out.println("obtemMenoresCaminhos");
+        Vertice pontoPartida = null;
+        Grafo conjuntoVertices = null;
+        Dijkstra instance = new Dijkstra();
+        Grafo expResult = null;
+        Grafo result = instance.obtemMenoresCaminhos(pontoPartida, conjuntoVertices);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

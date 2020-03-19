@@ -17,8 +17,8 @@ import org.junit.runners.Suite;
  * @author Marcos
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({Model.GrafoIT.class, Model.VerticeIT.class, Model.ArquivoIT.class, Model.ArestaIT.class, Model.DijkstraIT.class})
-public class ModelITSuite {
+@Suite.SuiteClasses({Model.GrafoTest.class, Model.VerticeTest.class, Model.ArquivoTest.class, Model.ArestaTest.class, Model.DijkstraTest.class})
+public class ModelSuite {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
