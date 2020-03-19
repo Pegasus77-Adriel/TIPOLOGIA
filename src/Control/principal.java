@@ -2,7 +2,7 @@ package Control;
 
 /**
  * Classe principal do projeto, responsável pela instância da classe
- * controlodara, que dará início às funcionalidades do programa
+ * controlodara que dará início às funcionalidades do programa
  *
  * @author Marcos Vinícius
  */
