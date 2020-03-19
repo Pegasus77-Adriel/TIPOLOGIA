@@ -2,18 +2,30 @@ package Model;
 
 import java.util.LinkedList;
 
+/**
+ *
+ * @author Adryel
+ */
 public class Grafo {
 
     private LinkedList<Vertice> listaVertices;
     private LinkedList<String> listaNomeVertices;
 
-    // Metódo Construtor
+
+    /**
+     * Metódo Construtor
+     */
     public Grafo() {
         this.listaVertices = new LinkedList();
         this.listaNomeVertices = new LinkedList();
     }
 
-    // Método Contrutor para Clonagem
+    /**
+     * Método contrutor para clonagem
+     * @param listaVertices Lista de vertice para ser adicionada
+     * @param listaNomeVertices Lista de nomes de verticies para ser adicionada
+     */
+    
     private Grafo(LinkedList<Vertice> listaVertices, LinkedList<String> listaNomeVertices) {
         this.listaVertices = listaVertices;
         this.listaNomeVertices = listaNomeVertices;
@@ -47,17 +59,35 @@ public class Grafo {
         }
         return origem.addAresta(fim, peso) && fim.addAresta(origem, peso);
     }
-    // Método 
+   
+
+    /**
+     * Método para adicionar nova aresta 
+     * @param peso Peso da nova aresta
+     * @param origem Vertice inicial da nova aresta
+     * @param fim Vertice final da nova aresta
+     * @return Retorna o método do objeto aresta de adicionar um nova aresta
+     */
     public boolean adicionaArestaSimples(int peso, Vertice origem, Vertice fim) {
         return origem.addAresta(fim, peso);
     }
 
-    // Método que retorna umas lista de todos os verticies contido no grafo
+
+    /**
+     * Método que retorna umas lista de todos os verticies contido no grafo
+     * @return Retorna todos vertice do  grafo
+     */
     public LinkedList<Vertice> getVertices() {
         return listaVertices;
     }
 
-    // Método de excluir um vertice no grafo
+  
+    /**
+     * Método de excluir um vertice no grafo
+     * @param emRemocao Vertice que será removido
+     * @return Retorna método de remover vertice da lista de vertices do grafo
+     * e retorna método de remover nome da lista de nomes de vertices do grafo
+     */
     public boolean removeVertice(Vertice emRemocao) {
         Vertice verticeAtual = null;
         for (int i = 0; i < listaVertices.size(); i++) {
@@ -69,11 +99,23 @@ public class Grafo {
         return listaVertices.remove(emRemocao) && listaNomeVertices.remove(emRemocao.getNome());
     }
 
+    /**
+     * Método que remover vertice do grafo, com base no nome do vertice
+     * @param nomeVertice Nome do vertice a ser removido
+     * @return Retorna método de remover vertice, com base no objeto vertice
+     */
     public boolean removeVertice(String nomeVertice) {
         Vertice buscado = this.buscaVertice(nomeVertice);
+        // A linha acima faz a chamada do método de encontrar o objeto vertice
+        // com base no nome do vertice
         return this.removeVertice(buscado);
     }
 
+    /**
+     * Método de verificar se a lista dos vertices do grafo está vazia
+     * @return Retorna true ou false, caso a lista de vertices do grafo
+     * esteja vazia ou nao
+     */
     public boolean estaVazio() {
         return this.listaVertices.isEmpty();
     }
@@ -141,19 +183,37 @@ public class Grafo {
         }
         return false; // Retorna false caso não tenha encontrado aresta
     }
-    // Método que retorna lista de vertices do grafo
+   
+    
+    /**
+     * Método que retorna lista de vertices do grafo
+     * @return Retorna lista de vertices do grafo
+     */
     public LinkedList<Vertice> getListaVertices() {
         return listaVertices;
     }
-    // Método que altera a lista de vertices do grafo
+   
+    /**
+     * Método que altera a lista de vertices do grafo
+     * @param listaVertices Lista de vertices a inserida no grafo
+     */
     public void setListaVertices(LinkedList<Vertice> listaVertices) {
         this.listaVertices = listaVertices;
     }
-    // Método que retorna a lista de nomes dos vertices do grafo
+    
+    /**
+     * Método que retorna a lista de nomes dos vertices do grafo
+     * @return Retorna lista de nomes de vertices do grafo
+     */
     public LinkedList<String> getListaNomeVertices() {
         return listaNomeVertices;
     }
-    // Método que altera a lista de nomes do vertice
+  
+
+    /**
+     * Método que altera a lista de nomes do vertice
+     * @param listaNomeVertices Lista de nomes de vertices a ser inserida
+     */
     public void setListaNomeVertices(LinkedList<String> listaNomeVertices) {
         this.listaNomeVertices = listaNomeVertices;
     }
