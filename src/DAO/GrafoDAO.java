@@ -18,7 +18,7 @@ public class GrafoDAO {
      */
     public Grafo getGrafo() {
 
-        return this.grafo;
+        return GrafoDAO.grafo;
     }
 
     /**
@@ -28,9 +28,7 @@ public class GrafoDAO {
      * @return Retorna método do objeto Grafo de adicionar vertice
      */
     public boolean adicionaVertice(Vertice novoVertice) {
-
         return grafo.adicionaVertice(novoVertice);
-
     }
 
     /**
