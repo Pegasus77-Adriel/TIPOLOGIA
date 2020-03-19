@@ -160,27 +160,21 @@ public class Controlador {
             if (celula.isVertex()) {
                 removeArestasDeVertice(celula);
                 removeVertice(celula);
-                interfaceI.getPainel().getModel().endUpdate();
                 interfaceI.exibeMensagem("Vértice removido com sucesso!");
-                //String nomeCelula = (String) celula.getValue();
-                //Principal.removeVertice(nomeCelula);
             }
         }
         celulaSelecionada1 = celulaSelecionada2 = null;
     }
 
-    /*
-    private mxCell removeAresta(mxCell aresta) {
-        mxCell removida = (mxCell) interfaceI.getPainel().getModel().remove(aresta);
+    private mxCell buscaERemoveArestaDe(mxCell emRemocao) {
         for (String identificador : listaArestas.keySet()) {
-            if (listaArestas.get(identificador).equals(removida)) {
+            if (listaArestas.get(identificador).equals(emRemocao)) {
                 return listaArestas.remove(identificador);
             }
         }
         return null;
     }
-TALVEZ NAO PRECISE MAIS DESSE METODO
-     */
+
     private mxCell removeVertice(mxCell vertice) {
         mxCell removido = interfaceI.removeCelula(vertice);
         grafo.removeVertice((String) removido.getValue());
@@ -197,8 +191,9 @@ TALVEZ NAO PRECISE MAIS DESSE METODO
         while (vertex.getEdgeCount() > 0) {
             if (!listaAdjacentes.isEmpty()) {
                 Vertice verticeAdjacente = listaAdjacentes.get(0).getFim();
-                grafo.removeAresta(verticeBuscados.getNome(), verticeAdjacente.getNome());
+                grafo.removeAresta(verticeBuscados.getNome(), verticeAdjacente.getNome()); //Isso aqui pode ser tornar útil caso implantemos a opção de remover aresta na interface
             }
+            buscaERemoveArestaDe((mxCell) vertex.getEdgeAt(0));
             interfaceI.removeCelula(vertex.getEdgeAt(0));
         }
     }
@@ -230,7 +225,6 @@ TALVEZ NAO PRECISE MAIS DESSE METODO
             celulaSelecionada1 = celulaSelecionada2 = null;
         }
         else if (selecionada.isEdge()) {
-            removeSelecao(x, y);
             celulaSelecionada1 = celulaSelecionada2 = null;
         }
         else {
@@ -273,19 +267,32 @@ TALVEZ NAO PRECISE MAIS DESSE METODO
     }
 
     public void importaConfiguracoes() {
-        String diretorio = interfaceI.selecionaDiretorioAbertura();
-        if (diretorio != null) {
-            try {
-                Arquivo.trasfereParaGrafo(diretorio, grafo.getGrafo());
-                trasfereModelParaInterface(grafo.getGrafo());
-                interfaceI.exibeMensagem("Suas configurações foram importadas com sucesso!");
-            }
-            catch (IOException | ExceptionInInitializerError ex) {
-                interfaceI.exibeMensagem("Houve um erro na criação do arquivo! Por favor, tente com outro diretório.");
-            }
+        int decisao = -1;
+        if (!this.grafo.estaVazio()) {
+            decisao = interfaceI.exibeDialogoImportArquivo();
         }
-        else {
-            interfaceI.exibeMensagem("Operação cancelada! Nenhum diretorio foi informado!");
+        if (decisao != 2) {
+            String diretorio = interfaceI.selecionaDiretorioAbertura();
+            if (diretorio != null) {
+                if (decisao == 0) {
+                    for (Object identificador : this.listaVertices.keySet().toArray()) {
+                        mxCell verticeAtual = this.listaVertices.get((String) identificador);
+                        removeArestasDeVertice(verticeAtual);
+                        removeVertice(verticeAtual);
+                    }
+                }
+                try {
+                    Arquivo.trasfereParaGrafo(diretorio, grafo.getGrafo());
+                    trasfereModelParaInterface(grafo.getGrafo());
+                    interfaceI.exibeMensagem("Suas configurações foram importadas com sucesso!");
+                }
+                catch (IOException | ExceptionInInitializerError ex) {
+                    interfaceI.exibeMensagem("Houve um erro na criação do arquivo! Por favor, tente com outro diretório.");
+                }
+            }
+            else {
+                interfaceI.exibeMensagem("Operação cancelada! Nenhum diretorio foi informado!");
+            }
         }
     }
 
@@ -348,24 +355,34 @@ TALVEZ NAO PRECISE MAIS DESSE METODO
     }
 
     private void destacaCaminhosInterface(LinkedList<Vertice> caminhos) {
-        listaCaminhos = new LinkedList();
-        for (int j = 0; j < caminhos.size(); j++) {
-            Vertice verticeAtual = caminhos.get(j);
-            destacaAntecessores(verticeAtual);
+        String conjuntoListas = "";
+        if (caminhos != null) { //Apenas por prevenção, mas caminhos nunca será null
+            conjuntoListas += "Exibindo listas de caminhos para o vértice '" + caminhos.get(0).getNome() + "':  \n\n\n";
+            listaCaminhos = new LinkedList();
+            for (int j = 0; j < caminhos.size(); j++) {
+                Vertice verticeAtual = caminhos.get(j);
+                conjuntoListas += destacaAntecessores(verticeAtual);
+            }
+            interfaceI.exibeListasCaminhos(conjuntoListas);
         }
     }
 
-    private void destacaAntecessores(Vertice verticeAtual) {
+    private String destacaAntecessores(Vertice verticeAtual) {
+        String novoCaminho = "";
         while (verticeAtual != null) {
+            novoCaminho += verticeAtual.getNome();
             mxCell verticeEncontrado = listaVertices.get(verticeAtual.getNome());
             extendeCaminho(verticeEncontrado);
             if (verticeAtual.getVerticeAntecessor() != null) {
+                novoCaminho += ", " + " ";
                 extendeCaminho(listaArestas.get(criaIdentificador(verticeAtual.getNome(), verticeAtual.getVerticeAntecessor().getNome())));
                 extendeCaminho(listaArestas.get(criaIdentificador(verticeAtual.getVerticeAntecessor().getNome(), verticeAtual.getNome())));
             }
             verticeAtual = verticeAtual.getVerticeAntecessor();
         }
+        novoCaminho += "\n";
         interfaceI.getPainel().setSelectionCells(listaCaminhos);
+        return novoCaminho;
     }
 
     private void extendeCaminho(mxCell novaCelula) {

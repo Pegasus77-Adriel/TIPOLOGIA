@@ -1,5 +1,6 @@
 package View;
 
+import Observer.WindowFocusListenerPerdeFocoJanela;
 import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxICell;
@@ -20,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -81,7 +83,7 @@ public class InterfacePrincipal extends JFrame {
             ActionListener eventoItem, ActionListener eventoAdicionar, MouseListener eventoCliqueMouse, MouseWheelListener eventoRodaMouse) {
 
         super("WillFall Tipologias - Versão 1.8"); //Título da janela principal
-        this.defineIcone();
+        this.defineIcone(this);
 
         this.eventoAdicionar = eventoAdicionar;
         this.eventoCliqueMouse = eventoCliqueMouse;
@@ -131,7 +133,6 @@ public class InterfacePrincipal extends JFrame {
 
         defineAcoesMouse();
         this.setLocationRelativeTo(null); //Posiciona a janela no centro da tela
-        this.setVisible(true); //Torna a janela visível
     }
 
     /**
@@ -325,9 +326,9 @@ public class InterfacePrincipal extends JFrame {
     /**
      * Define um ícone para o programa
      */
-    private void defineIcone() {
+    private void defineIcone(JFrame janela) {
         ImageIcon novoIcone = new ImageIcon("icone.png");
-        this.setIconImage(novoIcone.getImage());
+        janela.setIconImage(novoIcone.getImage());
     }
 
     /**
@@ -398,5 +399,29 @@ public class InterfacePrincipal extends JFrame {
         mxCell removida = (mxCell) grafo.getModel().remove(celula);
         grafo.getModel().endUpdate();
         return removida;
+    }
+
+    public void exibeListasCaminhos(String corpoTexto) {
+        JFrame novaJanela = new JFrame("Lista de caminhos");
+        defineIcone(novaJanela);
+        JPanel painel = new JPanel();
+
+        novaJanela.setLocationRelativeTo(this);
+        JTextArea exibeTexto = new JTextArea(corpoTexto);
+        exibeTexto.setEditable(false);
+        painel.add(exibeTexto);
+        painel.setPreferredSize(exibeTexto.getPreferredSize());
+        novaJanela.getContentPane().add(painel);
+        novaJanela.addWindowFocusListener(new WindowFocusListenerPerdeFocoJanela(novaJanela));
+        novaJanela.pack();
+        novaJanela.setVisible(true); //Torna a janela visível
+    }
+
+    public int exibeDialogoImportArquivo() {
+        Object[] opcoes = {"Substituir configuração atual", "Mesclar configurações", "Cancelar importação"};
+        return (JOptionPane.showOptionDialog(null, "Você está tentando importar uma nova configuração enquanto outra já está sendo exibida!\n Escolha o que fazer após sobre a nova importação: ", "Aviso",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, opcoes, opcoes[0]));
+
     }
 }
