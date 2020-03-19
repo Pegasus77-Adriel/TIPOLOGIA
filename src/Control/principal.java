@@ -15,6 +15,6 @@ public final class principal {
      * externos
      */
     public static void main(String[] args) {
-        Controlador controlador = new Controlador();
+        new Controlador(true);
     }
 }

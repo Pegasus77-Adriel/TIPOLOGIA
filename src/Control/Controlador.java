@@ -38,20 +38,25 @@ public class Controlador {
     private mxCell celulaSelecionada1;
     private mxCell celulaSelecionada2;
     private int xA = Integer.MIN_VALUE, xB = Integer.MIN_VALUE, yA, yB;
-    private Collection<Object> listaCaminhos = new LinkedList();
 
-    private HashMap<String, mxCell> listaArestas = new HashMap();
-    private HashMap<String, mxCell> listaVertices = new HashMap();
+    private Collection<Object> listaCaminhos;
+    private HashMap<String, mxCell> listaArestas;
+    private HashMap<String, mxCell> listaVertices;
 
     private InterfacePrincipal interfaceI;
-    private GrafoDAO grafo = new GrafoDAO();
+    private GrafoDAO grafo;
 
-    public Controlador() {
+    public Controlador(boolean exibirInterface) {
         interfaceI = new InterfacePrincipal(new ActionEventListenerRemove(this), new ActionEventListenerSaida(),
                 new ActionEventListenerExportaGrafo(this), new ActionEventListenerImportaGrafo(this),
                 new ActionEventListenerConectaVertices(this), new ActionEventListenerSelecionaAparelho(this),
                 new ActionEventListenerAdicionaVertice(this), new EventosMouse(this), new ActionEventListenerRolagemMouse(this));
-        interfaceI.setVisible(true);
+        listaArestas = new HashMap();
+        listaVertices = new HashMap();
+        grafo = new GrafoDAO();
+        listaCaminhos = new LinkedList();
+
+        interfaceI.setVisible(exibirInterface);
     }
 
     public void adicionaVertice() {
