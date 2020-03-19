@@ -301,10 +301,13 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
-     * Exibe, para o usuário, informações sobre a distância euclidiana entre dois pontos da janela em que ele clicou consecutivamente
-     * @param coordenada1 Informações sobre a coordenada do primeiro ponto 
+     * Exibe, para o usuário, informações sobre a distância euclidiana entre
+     * dois pontos da janela em que ele clicou consecutivamente
+     *
+     * @param coordenada1 Informações sobre a coordenada do primeiro ponto
      * @param coordenada2 Informações sobre a coordenada do segundo ponto
-     * @param novaDistancia Distância euclidianada entre os dois pontos selecionados
+     * @param novaDistancia Distância euclidianada entre os dois pontos
+     * selecionados
      */
     public void exibeNovaDistanciaEuclidiana(String coordenada1, String coordenada2, String novaDistancia) {
         String espaco = "                  ";
@@ -329,6 +332,7 @@ public class InterfacePrincipal extends JFrame {
 
     /**
      * Fornece o conteúdo oculto em uma combobox
+     *
      * @return Retorna "computador", "rooteador" ou "Internet"
      */
     public String getConteudoCombobox() {
@@ -337,11 +341,12 @@ public class InterfacePrincipal extends JFrame {
 
     /**
      * Adiciona um novo vértice na interface gráfica
+     *
      * @param nomeVertice Nome do novo vértice
      * @param larguraVertice Largura do novo vértice
-     * @param alturaVertice Altura do novo vértice 
-     * @param tipoVertice
-     * @return
+     * @param alturaVertice Altura do novo vértice
+     * @param tipoVertice Tipo do vértice
+     * @return Retorna o vértice criado
      */
     public mxCell adicionaVertice(String nomeVertice, int larguraVertice, int alturaVertice, String tipoVertice) {
         grafo.getModel().beginUpdate();
@@ -352,12 +357,14 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Adiciona uma nova aresta na interface gráfica
      *
-     * @param pesoAresta
-     * @param vertice1
-     * @param vertice2
-     * @param visibilidade
-     * @return
+     * @param pesoAresta Peso da aresta
+     * @param vertice1 Vértice-origem
+     * @param vertice2 Vértice-destino
+     * @param visibilidade Visibilidade da aresta (true=visível,
+     * false=invisível)
+     * @return Retorna a aresta criada
      */
     public mxCell adicionaAresta(String pesoAresta, mxCell vertice1, mxCell vertice2, boolean visibilidade) {
         grafo.getModel().beginUpdate();
@@ -368,6 +375,10 @@ public class InterfacePrincipal extends JFrame {
         return novaAresta;
     }
 
+    /**
+     * Reorganiza os vértices da interface gráfica de modo que eles não se
+     * sobreponham
+     */
     private void reorganizaLayout() {
         mxFastOrganicLayout novaOrganizacao = new mxFastOrganicLayout(grafo);
         novaOrganizacao.setMinDistanceLimit(0.02);
@@ -377,9 +388,10 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
+     * Revoce uma célula (vértice, aresta, etc.) da interface gráfica
      *
-     * @param celula
-     * @return
+     * @param celula célula que será removida da interface
+     * @return Retorna a célula removida ou null caso nada tenha sido removido
      */
     public mxCell removeCelula(mxICell celula) {
         grafo.getModel().beginUpdate();
