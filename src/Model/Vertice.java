@@ -2,6 +2,10 @@ package Model;
 
 import java.util.LinkedList;
 
+/**
+ *
+ * @author Adryel
+ */
 public class Vertice {
 
     private String nome;
@@ -10,7 +14,12 @@ public class Vertice {
     private Vertice antecessor;
     private boolean terminal;
     
-    // Método Construtor 
+    
+    /**
+     * Método Construtor 
+     * @param nome Nome para o novo vertice 
+     * @param terminal Status de terminal para o novo vertice
+     */
     public Vertice(String nome, boolean terminal) {
         this.nome = nome;
         this.arestas = new LinkedList();
@@ -20,13 +29,18 @@ public class Vertice {
       * Método para adicionar uma nova aresta a dois vertices
       * @param destino Verticie de destino o qual será o fim da aresta
       * @param peso Peso da aresta
+     * @return 
       */
    
     public boolean addAresta(Vertice destino, int peso) {
         return arestas.add(new Aresta(peso, destino));
     }
    
-    // Método que retorna a lista de aresta do vertice
+    
+    /**
+     * Método que retorna a lista de aresta do vertice
+     * @return Retorna a lista de aresta do vertice
+     */
     public LinkedList<Aresta> getArestas() {
         return this.arestas;
     }
@@ -49,28 +63,52 @@ public class Vertice {
         return -1; // O Método retorna -1 caso não haja ligação
     }
    
-    // Método retorna o nome do vertice
+
+    /**
+     * Método retorna o nome do vertice
+     * @return Retorna o nome do vertice
+     */
     public String getNome() {
         return nome;
     }
     
-    // Método que altera a distância de origem do vertice
+
+    /**
+     * Método que altera a distância de origem do vertice
+     * @param novaDistanciaOrigem Nova distância de origem para ser adiconada
+     */
     public void setDistanciaOrigem(int novaDistanciaOrigem) {
         this.distanciaOrigem = novaDistanciaOrigem;
     }
-    // Método que retorna a distancia da origem do vertice
+   
+    /**
+     * Método que retorna a distancia da origem do vertice
+     * @return Retorna a distância de origem do vertice
+     */
     public int getDistanciaOrigem() {
         return this.distanciaOrigem;
     }
-    // Método que altera o vertice antecessor de um vertice
+
+    /**
+     * Método que altera o vertice antecessor de um vertice
+     * @param novoAntecessor Novo vertice antecessor
+     */
     public void setVerticeAntecessor(Vertice novoAntecessor) {
         this.antecessor = novoAntecessor;
     }
-    // Método que retorna vertice antecessor de um vertice
+
+    /**
+     * Método que retorna vertice antecessor de um vertice
+     * @return Retorna o vertice antecessor do vertice
+     */
     public Vertice getVerticeAntecessor() {
         return this.antecessor;
     }
-    // Método que retorna se o vertice é terminal ou não
+
+    /**
+     * Método que retorna se o vertice é terminal ou não
+     * @return Retorna o status de terminal do vertice
+     */
     public boolean isTerminal() {
         return this.terminal;
     }
