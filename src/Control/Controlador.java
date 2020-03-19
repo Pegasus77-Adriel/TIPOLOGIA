@@ -361,14 +361,14 @@ public class Controlador {
             listaCaminhos = new LinkedList();
             for (int j = 0; j < caminhos.size(); j++) {
                 Vertice verticeAtual = caminhos.get(j);
-                conjuntoListas += destacaAntecessores(verticeAtual);
+                conjuntoListas += destacaAntecessores(verticeAtual, j + 1);
             }
             interfaceI.exibeListasCaminhos(conjuntoListas);
         }
     }
 
-    private String destacaAntecessores(Vertice verticeAtual) {
-        String novoCaminho = "";
+    private String destacaAntecessores(Vertice verticeAtual, int nCaminho) {
+        String novoCaminho = verticeAtual == null || nCaminho == -1 ? "" : nCaminho + "º caminho: ";
         while (verticeAtual != null) {
             novoCaminho += verticeAtual.getNome();
             mxCell verticeEncontrado = listaVertices.get(verticeAtual.getNome());
@@ -420,7 +420,7 @@ public class Controlador {
                 if (v1 != null && v2 != null) {
                     if (v1.isTerminal() && v2.isTerminal()) {
                         listaCaminhos = new LinkedList();
-                        destacaAntecessores(verticeAtual);
+                        destacaAntecessores(verticeAtual, -1);
                         break;
                     }
                 }
