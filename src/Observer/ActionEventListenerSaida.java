@@ -5,20 +5,28 @@
  */
 package Observer;
 
-import Control.Controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Classe responsável por chamar os métodos responsáveis pela saída do programa
  *
- * @author Marcos
+ * @author Marcos Vinícius
  */
 public class ActionEventListenerSaida implements ActionListener {
-Controlador padrao;
-    public ActionEventListenerSaida(Controlador novo) {
-        this.padrao = novo;
+
+    /**
+     * Construtor da classe ActionEventListenerSaida
+     *
+     */
+    public ActionEventListenerSaida() {
     }
 
+    /**
+     * Inicia a chamada a um método de Controlador através de sua instância
+     *
+     * @param ae Corresponde ao evento causado pela do usuário
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         System.exit(0);

@@ -47,7 +47,7 @@ public class Controlador {
     private GrafoDAO grafo = new GrafoDAO();
 
     public Controlador() {
-        interfaceI = new InterfacePrincipal(new ActionEventListenerRemove(this), new ActionEventListenerSaida(this),
+        interfaceI = new InterfacePrincipal(new ActionEventListenerRemove(this), new ActionEventListenerSaida(),
                 new ActionEventListenerExportaGrafo(this), new ActionEventListenerImportaGrafo(this),
                 new ActionEventListenerConectaVertices(this), new ActionEventListenerSelecionaAparelho(this),
                 new ActionEventListenerAdicionaVertice(this), new EventosMouse(this), new ActionEventListenerRolagemMouse(this));
