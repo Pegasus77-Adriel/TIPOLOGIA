@@ -2,6 +2,10 @@ package DAO;
 
 import Model.*;
 
+/**
+ *
+ * @author Adryel
+ */
 public class GrafoDAO {
 
     private static Grafo grafo = new Grafo();
