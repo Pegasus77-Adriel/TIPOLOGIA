@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.util.LinkedList;
@@ -66,7 +61,7 @@ public class GrafoTest {
         Vertice fim = null;
         Grafo grafo = new Grafo();
         boolean resultado = grafo.adicionaArestaDupla(peso, origem, fim);
-        assertFalse("Adição de vértice nulo não é permitida, retorna false", resultado);
+        assertFalse("Adição de vértice nulo não é permitida. Retorno é false", resultado);
         origem = new Vertice("1", true);
         resultado = grafo.adicionaArestaDupla(peso, origem, fim);
         assertFalse(resultado);
@@ -85,7 +80,7 @@ public class GrafoTest {
         Vertice fim = null;
         Grafo grafo = new Grafo();
         boolean resultado = grafo.adicionaArestaSimples(peso, origem, fim);
-        assertFalse("Adição de vértice nulo não é permitida, retorna false", resultado);
+        assertFalse("Adição de vértice nulo não é permitida. Retorno é false", resultado);
         origem = new Vertice("1", true);
         resultado = grafo.adicionaArestaSimples(peso, origem, fim);
         assertFalse(resultado);
