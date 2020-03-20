@@ -18,51 +18,36 @@ import static org.junit.Assert.*;
  */
 public class ArestaTest {
     
-    public ArestaTest() {
-    }
+   
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
-     * Test of getPeso method, of class Aresta.
+     * Teste de retornar peso da Aresta.
      */
     @Test
     public void testGetPeso() {
         System.out.println("getPeso");
-        Aresta instance = null;
-        int expResult = 0;
+        Vertice vertice = new Vertice("A",true);
+        Aresta instance = new Aresta(3,vertice);
+        int expResult = 3;
         int result = instance.getPeso();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        
     }
 
     /**
-     * Test of getFim method, of class Aresta.
+     * Teste de retornar Vertice final da aresta.
      */
     @Test
     public void testGetFim() {
         System.out.println("getFim");
-        Aresta instance = null;
-        Vertice expResult = null;
+        Vertice vertice = new Vertice("A",true);
+        Aresta instance = new Aresta(3,vertice);
+        Vertice expResult = vertice;
         Vertice result = instance.getFim();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
     
 }
