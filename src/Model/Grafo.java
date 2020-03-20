@@ -61,7 +61,7 @@ public class Grafo {
         if (origem == null || fim == null) {
             return false;
         }
-        return origem.addAresta(fim, peso) && fim.addAresta(origem, peso);
+        return origem.adicionaAresta(fim, peso) && fim.adicionaAresta(origem, peso);
     }
 
     /**
@@ -76,7 +76,7 @@ public class Grafo {
         if (origem == null || fim == null) {
             return false;
         }
-        return origem.addAresta(fim, peso);
+        return origem.adicionaAresta(fim, peso);
     }
 
     /**
@@ -187,7 +187,6 @@ public class Grafo {
             if (vertice1 != null && vertice2 != null) {
                 return vertice1.removeLigacaoCom(vertice2) && vertice2.removeLigacaoCom(vertice1);
             }
-
         }
         return false; // Retorna false caso não tenha encontrado aresta
     }

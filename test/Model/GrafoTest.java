@@ -136,7 +136,7 @@ public class GrafoTest {
         System.out.println("estaVazio");
         Vertice vertice = new Vertice("1", true);
         Grafo grafo = new Grafo();
-        assertTrue("Nada foi adiciona, retorno é true", grafo.estaVazio());
+        assertTrue("Nada foi adicionado, retorno é true", grafo.estaVazio());
         grafo.adicionaVertice(vertice);
         assertFalse(grafo.estaVazio());
         grafo.removeVertice(vertice);

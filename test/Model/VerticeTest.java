@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.util.LinkedList;
@@ -18,166 +13,76 @@ import static org.junit.Assert.*;
  * @author Marcos
  */
 public class VerticeTest {
-    
+
     public VerticeTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of addAresta method, of class Vertice.
+     * Teste do método adicionaAresta.
      */
     @Test
     public void testAddAresta() {
         System.out.println("addAresta");
         Vertice destino = null;
         int peso = 0;
-        Vertice instance = null;
-        boolean expResult = false;
-        boolean result = instance.addAresta(destino, peso);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Vertice origem = new Vertice("1", false);
+        boolean resultado = origem.adicionaAresta(destino, peso);
+        assertFalse("É impossível adicionar algo nulo. Retorno será false", resultado);
+        destino = new Vertice("2", false);
+        resultado = origem.adicionaAresta(destino, peso);
+        assertTrue(resultado);
+        resultado = origem.adicionaAresta(destino, peso);
+        assertTrue("Pode haver mais de uma aresta entre dois vértices. Retorno será true", resultado);
     }
 
     /**
-     * Test of getArestas method, of class Vertice.
-     */
-    @Test
-    public void testGetArestas() {
-        System.out.println("getArestas");
-        Vertice instance = null;
-        LinkedList<Aresta> expResult = null;
-        LinkedList<Aresta> result = instance.getArestas();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPesoLigacaoCom method, of class Vertice.
+     * Teste do método getPesoLigacaoCom.
      */
     @Test
     public void testGetPesoLigacaoCom() {
         System.out.println("getPesoLigacaoCom");
-        Vertice adjacente = null;
-        Vertice instance = null;
-        int expResult = 0;
-        int result = instance.getPesoLigacaoCom(adjacente);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int pesoLigacao = 0;
+        Vertice adjacente = new Vertice("2", true);
+        Vertice vertice = new Vertice("1", false);
+        int resultado = vertice.getPesoLigacaoCom(adjacente);
+        assertSame(-1, resultado);
+        vertice.adicionaAresta(adjacente, pesoLigacao);
+        resultado = vertice.getPesoLigacaoCom(adjacente);
+        assertNotSame(-1, resultado);
+        assertSame(pesoLigacao, resultado);
     }
 
     /**
-     * Test of getNome method, of class Vertice.
-     */
-    @Test
-    public void testGetNome() {
-        System.out.println("getNome");
-        Vertice instance = null;
-        String expResult = "";
-        String result = instance.getNome();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setDistanciaOrigem method, of class Vertice.
-     */
-    @Test
-    public void testSetDistanciaOrigem() {
-        System.out.println("setDistanciaOrigem");
-        int novaDistanciaOrigem = 0;
-        Vertice instance = null;
-        instance.setDistanciaOrigem(novaDistanciaOrigem);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDistanciaOrigem method, of class Vertice.
-     */
-    @Test
-    public void testGetDistanciaOrigem() {
-        System.out.println("getDistanciaOrigem");
-        Vertice instance = null;
-        int expResult = 0;
-        int result = instance.getDistanciaOrigem();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setVerticeAntecessor method, of class Vertice.
-     */
-    @Test
-    public void testSetVerticeAntecessor() {
-        System.out.println("setVerticeAntecessor");
-        Vertice novoAntecessor = null;
-        Vertice instance = null;
-        instance.setVerticeAntecessor(novoAntecessor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getVerticeAntecessor method, of class Vertice.
-     */
-    @Test
-    public void testGetVerticeAntecessor() {
-        System.out.println("getVerticeAntecessor");
-        Vertice instance = null;
-        Vertice expResult = null;
-        Vertice result = instance.getVerticeAntecessor();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isTerminal method, of class Vertice.
-     */
-    @Test
-    public void testIsTerminal() {
-        System.out.println("isTerminal");
-        Vertice instance = null;
-        boolean expResult = false;
-        boolean result = instance.isTerminal();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of removeLigacaoCom method, of class Vertice.
+     * Teste do método removeLigacaoCom.
      */
     @Test
     public void testRemoveLigacaoCom() {
         System.out.println("removeLigacaoCom");
-        Vertice emRemocao = null;
-        Vertice instance = null;
-        boolean expResult = false;
-        boolean result = instance.removeLigacaoCom(emRemocao);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Vertice emRemocao = new Vertice("2", false);
+        Vertice vertice = new Vertice("1", false);
+        boolean resultado = vertice.removeLigacaoCom(emRemocao);
+        assertFalse("A ligação ainda não foi estabelecida. O retorno será false", resultado);
+        vertice.adicionaAresta(emRemocao, 0);
+        resultado = vertice.removeLigacaoCom(emRemocao);
+        assertTrue(resultado);
+        resultado = vertice.removeLigacaoCom(emRemocao);
+        assertFalse("Não existe mais nenhuma ligação. O retorno será false", resultado);
     }
-    
+
 }
