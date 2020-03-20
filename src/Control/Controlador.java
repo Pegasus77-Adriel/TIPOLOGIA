@@ -265,7 +265,7 @@ public class Controlador {
             String diretorio = interfaceI.selecionaDiretorioAbertura();
             if (diretorio != null) {
                 if (decisao == 0) {
-                    for (Object verticeAtual : listaVertices.getPercorreVertices()) {
+                    for (Object verticeAtual : listaVertices.getVertices()) {
                         removeArestasDeVertice((mxCell) verticeAtual);
                         removeVertice((mxCell) verticeAtual);
                     }
