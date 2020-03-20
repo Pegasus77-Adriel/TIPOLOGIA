@@ -3,40 +3,16 @@ import Model.Arquivo;
 import Model.Grafo;
 import Model.Vertice;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Marcos
+ * @author Marcos e Adriel
  */
 public class ArquivoTest {
 
-    public ArquivoTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
+   
     /**
      * Teste do método trasfereParaArquivo.
      *

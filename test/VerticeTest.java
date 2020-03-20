@@ -1,58 +1,15 @@
 
 import Model.Vertice;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Marcos
+ * @author Marcos e Adriel
  */
 public class VerticeTest {
 
-    public VerticeTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Teste do método adicionaAresta.
-     */
-    @Test
-    public void testAddAresta() {
-        System.out.println("addAresta");
-        Vertice destino = null;
-        int peso = 0;
-        Vertice origem = new Vertice("1", false);
-        boolean resultado = origem.adicionaAresta(destino, peso);
-        assertFalse("É impossível adicionar algo nulo. Retorno será false", resultado);
-        destino = new Vertice("2", false);
-        resultado = origem.adicionaAresta(destino, peso);
-        assertTrue(resultado);
-        resultado = origem.adicionaAresta(destino, peso);
-        assertTrue("Pode haver mais de uma aresta entre dois vértices. Retorno será true", resultado);
-    }
-
-    /**
-     * Teste do método getPesoLigacaoCom.
-     */
+    
     @Test
     public void testGetPesoLigacaoCom() {
         System.out.println("getPesoLigacaoCom");

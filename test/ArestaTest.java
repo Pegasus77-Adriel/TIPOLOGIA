@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Marcos
+ * @author Marcos e Adriel
  */
 public class ArestaTest {
 

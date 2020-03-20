@@ -8,10 +8,13 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Marcos
+ * @author Marcos e Adriel
  */
 public class DijkstraTest {
 
+    /**
+     * Teste do método de obter meonor camainho do Dijkstra
+     */
     @Test
     public void testObtemMenoresCaminhos() {
      
