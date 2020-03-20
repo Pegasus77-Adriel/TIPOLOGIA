@@ -27,13 +27,9 @@ public class mxCellArestaDAO {
     }
 
     public mxCell removeArestaI(mxCell emRemocao) {
-        return this.removeArestaI((String) emRemocao.getValue());
-    }
-
-    public mxCell removeArestaI(String identificadorAresta) {
         for (Object keyAtual : arestas.keySet()) {
-            if (keyAtual.equals(identificadorAresta)) {
-                return arestas.remove(identificadorAresta);
+            if (arestas.get(keyAtual).equals(emRemocao)) {
+                return arestas.remove((String) keyAtual);
             }
         }
         return null;

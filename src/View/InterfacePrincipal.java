@@ -213,7 +213,9 @@ public class InterfacePrincipal extends JFrame {
         JFileChooser arquivo = new JFileChooser();
         arquivo.setFileFilter(extensoesPermitidas);
         arquivo.setDialogTitle("Escolha o arquivo que será importado:");
-        arquivo.showOpenDialog(null);
+        if (arquivo.showOpenDialog(null) == 1) {
+            return null;
+        }
         return arquivo.getSelectedFile() == null ? null : arquivo.getSelectedFile().getAbsolutePath();
     }
 
@@ -392,7 +394,8 @@ public class InterfacePrincipal extends JFrame {
     }
 
     /**
-     *  Método de exibir a listas dos caminho
+     * Método de exibir a listas dos caminho
+     *
      * @param corpoTexto Corpo do texto que será exibida
      */
     public void exibeListasCaminhos(String corpoTexto) {
@@ -413,6 +416,7 @@ public class InterfacePrincipal extends JFrame {
 
     /**
      * método de exbi mensagem em relação ao dialogo de importar configuraçoes
+     *
      * @return Rotorna um método para emiti mensagem para o usuário
      */
     public int exibeDialogoImportArquivo() {
@@ -426,6 +430,7 @@ public class InterfacePrincipal extends JFrame {
 
     /**
      * Método de remover celeção selecionada
+     *
      * @param selecionada É a mcell selecionada
      */
     public void removeCelecao(mxCell selecionada) {
@@ -434,6 +439,7 @@ public class InterfacePrincipal extends JFrame {
 
     /**
      * Método de inserir seleção selecionada
+     *
      * @param caminhos é lista de caminho para insreção
      */
     public void insereSelecao(Object[] caminhos) {
