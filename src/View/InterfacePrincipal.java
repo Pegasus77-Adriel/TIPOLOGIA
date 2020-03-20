@@ -132,6 +132,7 @@ public class InterfacePrincipal extends JFrame {
         areaCompGrafo.getViewport().setOpaque(false); //Impede que o fundo do grafo seja transparente
 
         defineAcoesMouse();
+        this.setResizable(false); //Impede o redimensionamento
         this.setLocationRelativeTo(null); //Posiciona a janela no centro da tela
     }
 
@@ -278,8 +279,8 @@ public class InterfacePrincipal extends JFrame {
 
         JLabel selecioneItem = new JLabel("Selecione um item:     ");
         painel3.add(selecioneItem);
-
-        String[] aparelhos = {"computador", "Internet", "rooteador"};
+        String[] aparelhos = {"Computador    (Vértice Terminal)"
+            + "", "Internet   (Vértice Não-Terminal)", "rooteador   (Vértice Não-Terminal)"};
         selecaoAparelho = new JComboBox(aparelhos);
         selecaoAparelho.setSelectedIndex(0);
         selecaoAparelho.addActionListener(eventoItem);
@@ -329,7 +330,8 @@ public class InterfacePrincipal extends JFrame {
      * @return Retorna "computador", "rooteador" ou "Internet"
      */
     public String getConteudoCombobox() {
-        return (String) selecaoAparelho.getSelectedItem();
+        String[] itens = {"computador", "Internet", "rooteador"};
+        return itens[selecaoAparelho.getSelectedIndex()];
     }
 
     /**
@@ -444,5 +446,15 @@ public class InterfacePrincipal extends JFrame {
      */
     public void insereSelecao(Object[] caminhos) {
         grafo.setSelectionCells(caminhos);
+    }
+
+    public void reduzZoom() {
+        areaCompGrafo.zoomOut();
+        areaCompGrafo.zoomAndCenter();
+    }
+
+    public void aumentaZoom() {
+        areaCompGrafo.zoomIn();
+        areaCompGrafo.zoomAndCenter();
     }
 }

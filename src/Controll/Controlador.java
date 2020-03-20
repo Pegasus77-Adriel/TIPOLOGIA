@@ -317,9 +317,10 @@ public class Controlador {
     }
 
     /**
-     * 
-     * @param x
-     * @param y
+     * Desleciona um vértice
+     *
+     * @param x Coordenada horizontal do vértice
+     * @param y Coordeanda vertical do vértice
      */
     public void removeSelecao(int x, int y) {
         mxCell selecionada = (mxCell) interfaceI.getAreaComponentes().getCellAt(x, y);
@@ -327,17 +328,17 @@ public class Controlador {
     }
 
     /**
-     *
+     * Intermedia a importação de um arquivo de configuração
      */
     public void importaConfiguracoes() {
         int decisao = -1;
         if (!this.grafoDAO.estaVazio()) {
             decisao = interfaceI.exibeDialogoImportArquivo();
         }
-        if (decisao != 2) {
+        if (decisao != 2) { //Se o usuário não "Cancelar", faça:
             String diretorio = interfaceI.selecionaDiretorioAbertura();
-            if (diretorio != null) {
-                if (decisao == 0) {
+            if (diretorio != null) { //Se o usuário realmente escolher um arquivo, faça:
+                if (decisao == 0) { //Se o usuário escolher "substituir", faça:
                     for (Object verticeAtual : listaVerticesMxCell.getVertices()) {
                         removeArestasDeVertice((mxCell) verticeAtual);
                         removeVertice((mxCell) verticeAtual);
@@ -358,6 +359,13 @@ public class Controlador {
         }
     }
 
+    /**
+     * Insere, na interface, todos os vértices cujos dados estão armazenados no
+     * grafoModel, junto com suas respectivas ligações
+     *
+     * @param grafo Estrutura que terá seus dados analisados para que a
+     * interface possa ser preenchida
+     */
     private void trasfereModelParaInterface(Grafo grafo) {
         LinkedList<Vertice> vertices = grafo.getVertices();
         for (int j = 0; j < vertices.size(); j++) {
@@ -382,23 +390,30 @@ public class Controlador {
     }
 
     /**
+     * Regula o zoom na interface gráfica através de eventos do mouse
      *
-     * @param rotacaoRoda
-     * @param ctrlPressionado
+     * @param rotacaoRoda Valor correspondente à direção em que a roda do mouse
+     * foi rolada
+     * @param ctrlPressionado Informação correspondente ao pressionamento da
+     * tecla ctrl
      */
     public void defineZoom(int rotacaoRoda, boolean ctrlPressionado) {
         if (ctrlPressionado) {
-            if (rotacaoRoda > 0) {
-                interfaceI.getAreaComponentes().zoomOut();
-                interfaceI.getAreaComponentes().zoomAndCenter();
+            if (rotacaoRoda > 0) { //Se a roda foi girada pra baixo, faça:
+                interfaceI.reduzZoom();
             }
-            else {
-                interfaceI.getAreaComponentes().zoomIn();
-                interfaceI.getAreaComponentes().zoomAndCenter();
+            else { //Se a roda foi giradada pra cima, faça:
+                interfaceI.aumentaZoom();
             }
         }
     }
 
+    /**
+     * Calcula e informa a distância euclidiana
+     *
+     * @param novoX Coordenada horizontal
+     * @param novoY
+     */
     private void atualizaDistanciaEuclidiana(int novoX, int novoY) {
         if (xA == xB && xA == Integer.MIN_VALUE) {
             xA = novoX;
@@ -417,11 +432,14 @@ public class Controlador {
             if (xB == Integer.MIN_VALUE) {
                 coordenada2 = distanciaE = "";
             }
-            else {
+            else {/*O cálculo para encontrar a distância euclidiana é simples 
+                e pode ser encontrado em qualquer lugar na internet, no nosso caso, nos 
+                baseamos nos ensinamentos da wikepédia, porém o código abaixo foi 
+                inteiramente criado por nós*/
                 coordenada2 = "x= " + xB + ",   y= " + yB;
-                double BC = Math.pow(yB - yA, 2);
+                double BC = Math.pow(yB - yA, 2);//Obtém o quadrado
                 double AC = Math.pow(xB - xA, 2);
-                double distancia = Math.sqrt(BC + AC);
+                double distancia = Math.sqrt(BC + AC); //Obtém a raiz quadrada
                 distanciaE = distancia + "";
                 xA = xB = Integer.MIN_VALUE;
             }
@@ -429,8 +447,14 @@ public class Controlador {
         interfaceI.exibeNovaDistanciaEuclidiana(coordenada1, coordenada2, distanciaE);
     }
 
+    /**
+     * Destaca os menores caminhos partindo de um vértice na interface gráfica
+     *
+     * @param caminhos Informação sobre os menores caminhos do vértices e suas
+     * relações
+     */
     private void destacaCaminhosInterface(LinkedList<Vertice> caminhos) {
-        String conjuntoListas = "";
+        String conjuntoListas = ""; //Conteúdo da mensagem que será exibidas
         if (caminhos != null) { //Apenas por prevenção, mas caminhos nunca será null
             conjuntoListas += "Exibindo listas de caminhos para o vértice '" + caminhos.get(0).getNome() + "':  \n\n\n";
             listaCaminhos = new LinkedList();
@@ -442,6 +466,16 @@ public class Controlador {
         }
     }
 
+    /**
+     * Trilha um caminho que leva de um vértice a outro com base apenas em seus
+     * antecessores
+     *
+     * @param verticeAtual Vértice cujos antecessores serão acessados para
+     * formar um caminho
+     * @param nCaminho Número do caminho criado
+     * @return Retorna uma string contendo informações sobre o novo caminho
+     * criado
+     */
     private String destacaAntecessores(Vertice verticeAtual, int nCaminho) {
         String novoCaminho = verticeAtual == null || nCaminho == -1 ? "" : nCaminho + "º caminho: ";
         while (verticeAtual != null) {
@@ -459,6 +493,12 @@ public class Controlador {
         return novoCaminho;
     }
 
+    /**
+     * Estende a lista de caminhos que mais tarde serão destacados na interface
+     * gráfica
+     *
+     * @param novaCelula Corresponde ao vértice
+     */
     private void extendeCaminho(mxCell novaCelula) {
         if (!listaCaminhos.contains(novaCelula)) {
             listaCaminhos.add(novaCelula);
@@ -466,12 +506,22 @@ public class Controlador {
     }
 
     /**
-     *
+     * Obtém a informação sobre qual tipo de vértice o usuário selecionou para a
+     * adição
      */
     public void defineItemSelecionado() {
         tipo_aparelho = interfaceI.getConteudoCombobox();
     }
 
+    /**
+     * Instancia um conjunto de objetos e métodos para fornecer uma lista de
+     * menores caminhos ao sistema
+     *
+     * @param nomeVertice Nome do vértice que será o ponto de início (origem)
+     * @param apenasTerminal Caso seja True, apenas vértices terminais
+     * (computadores) serão aceitos, caso contrário, qualquer vértice é aceito
+     * @return
+     */
     private LinkedList<Vertice> obtemMenoresCaminhos(String nomeVertice, boolean apenasTerminal) {
         Dijkstra d = new Dijkstra();
         Vertice buscado = grafoDAO.buscaVertice(nomeVertice);
@@ -479,6 +529,12 @@ public class Controlador {
         return gerado;
     }
 
+    /**
+     * Destaca e fornece o caminho entre dois vértices terminais
+     *
+     * @param caminhos Lista de caminhos de onde o caminho entre dois vértices
+     * terminais será extraído
+     */
     private void iniciaVerreduraSelecao(LinkedList<Vertice> caminhos) {
         Vertice v1, v2;
         v1 = v2 = null;
@@ -495,6 +551,9 @@ public class Controlador {
                     if (v1.isTerminal() && v2.isTerminal()) {
                         listaCaminhos = new LinkedList();
                         destacaAntecessores(verticeAtual, -1);
+                        /*Vale lembrar que o vértice atual sempre
+                        será encontrado e selecionado depois que o vértice origem for encontrado
+                        e ao mesmo tempo em que o vértice destino for encontrado*/
                         break;
                     }
                 }
