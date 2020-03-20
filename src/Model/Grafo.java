@@ -23,10 +23,10 @@ public class Grafo {
 
     /**
      * Método contrutor para clonagem
+     *
      * @param listaVertices Lista de vertice para ser adicionada
      * @param listaNomeVertices Lista de nomes de verticies para ser adicionada
      */
-    
     private Grafo(LinkedList<Vertice> listaVertices, LinkedList<String> listaNomeVertices) {
         this.listaVertices = listaVertices;
         this.listaNomeVertices = listaNomeVertices;
@@ -73,6 +73,9 @@ public class Grafo {
      * @return Retona true para adição bem-sucessidade ou false caso contrário
      */
     public boolean adicionaArestaSimples(int peso, Vertice origem, Vertice fim) {
+        if (origem == null || fim == null) {
+            return false;
+        }
         return origem.addAresta(fim, peso);
     }
 
@@ -118,8 +121,9 @@ public class Grafo {
 
     /**
      * Método de verificar se a lista dos vertices do grafo está vazia
-     * @return Retorna true ou false, caso a lista de vertices do grafo
-     * esteja vazia ou nao
+     *
+     * @return Retorna true ou false, caso a lista de vertices do grafo esteja
+     * vazia ou nao
      */
     public boolean estaVazio() {
         return this.listaVertices.isEmpty();
@@ -181,9 +185,7 @@ public class Grafo {
                 vertice2 = verticeAtual;
             }
             if (vertice1 != null && vertice2 != null) {
-                vertice1.removeLigacaoCom(vertice2);
-                vertice2.removeLigacaoCom(vertice1);
-                return true;
+                return vertice1.removeLigacaoCom(vertice2) && vertice2.removeLigacaoCom(vertice1);
             }
 
         }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Control;
 
 import org.junit.After;
@@ -17,22 +12,23 @@ import static org.junit.Assert.*;
  * @author Marcos
  */
 public class ControladorTest {
-    
+
     public ControladorTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
+        System.exit(0);
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -43,7 +39,7 @@ public class ControladorTest {
     @Test
     public void testAdicionaVertice() {
         System.out.println("adicionaVertice");
-        Controlador instance = null;
+        Controlador instance = new Controlador(false);
         instance.adicionaVertice();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -150,5 +146,5 @@ public class ControladorTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }
