@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class mxCellArestaDAO {
 
     HashMap<String, mxCell> arestas;
-    
+
     /**
      * Método construtor
      */
@@ -20,6 +20,7 @@ public class mxCellArestaDAO {
 
     /**
      * Método de buscar aresta com base em dois nomes de vertices
+     *
      * @param nomeVertice1 Nome do 1° vertice
      * @param nomeVertice2 Nome do 2° vertice
      * @return Retorna o método de retornar os nomes dos vertices buscados
@@ -31,6 +32,7 @@ public class mxCellArestaDAO {
 
     /**
      * Método de adicionar aresta
+     *
      * @param nomeVertice1 Nome do 1° verticce
      * @param nomeVertice2 Nome do 2° vertice
      * @param novaAresta É o mxCell da nova aresta
@@ -42,9 +44,10 @@ public class mxCellArestaDAO {
     }
 
     /**
-     *  Método de romver aresta
+     * Método de remover aresta
+     *
      * @param emRemocao É a aresta a ser removida
-     * @return Retorna o mxCell  da remoção, se não retorna null
+     * @return Retorna o mxCell da remoção, se não retorna null
      */
     public mxCell removeArestaI(mxCell emRemocao) {
         for (Object keyAtual : arestas.keySet()) {

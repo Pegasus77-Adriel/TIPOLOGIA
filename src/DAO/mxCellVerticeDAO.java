@@ -22,7 +22,7 @@ public class mxCellVerticeDAO {
      * Método de adicionar Vertice
      * @param nomeVertice É nome do vertice
      * @param novo É o novo mxcell
-     * @return Retorna mxCell da aresta adicionada
+     * @return Retorna mxCell do vértice adicionado
      */
     public mxCell adicionaVerticeI(String nomeVertice, mxCell novo) {
         if (novo == null) {
@@ -51,7 +51,7 @@ public class mxCellVerticeDAO {
     }
 
     /**
-     * Método de verificar se está vazio  a lista de vertices
+     * Método de verificar se está vazio
      * @return Retorna true ou false, caso esteja ou não
      */
     public boolean estaVazio() {

@@ -5,7 +5,7 @@
  */
 package Observer;
 
-import Control.Controlador;
+import Controll.Controlador;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

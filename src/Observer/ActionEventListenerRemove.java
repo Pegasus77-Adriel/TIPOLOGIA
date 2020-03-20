@@ -1,6 +1,6 @@
 package Observer;
 
-import Control.Controlador;
+import Controll.Controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
