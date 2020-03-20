@@ -205,9 +205,11 @@ public class Controlador {
      * sistema através de suas coordenadas
      */
     public void removeCelula() {
+        //Procurando pela última célula selecionada: 
         mxCell celula = celulaSelecionada2 == null ? celulaSelecionada1 : celulaSelecionada2;
+        //Se alguma célula foi selecionada antes do clique no botão de exluir, faça:
         if (celula != null) {
-            if (celula.isVertex()) {
+            if (celula.isVertex()) { //Se um vértice foi selecionado, faça:
                 removeArestasDeVertice(celula);
                 removeVertice(celula);
                 interfaceI.insereSelecao(null); //Tem o efeito colateral de descelecionar os vértices
@@ -217,6 +219,13 @@ public class Controlador {
         celulaSelecionada1 = celulaSelecionada2 = null;
     }
 
+    /**
+     * Realiza a remoção de um vértice do sistema
+     *
+     * @param vertice Vértice que será removido
+     * @return Retorna a mxCell vértice que for removida, caso contrário,
+     * retorna null
+     */
     private mxCell removeVertice(mxCell vertice) {
         mxCell removido = interfaceI.removeCelula(vertice);
         grafoDAO.removeVertice((String) removido.getValue());
@@ -227,10 +236,16 @@ public class Controlador {
         return removido;
     }
 
+    /**
+     * Invoca um conjunto de métodos que serão responsáveis por remover todas as
+     * arestas de um vértice
+     *
+     * @param vertex Vértice que terá suas arestas removidas
+     */
     private void removeArestasDeVertice(mxCell vertex) {
         Vertice verticeBuscados = grafoDAO.buscaVertice((String) vertex.getValue());
         LinkedList<Aresta> listaAdjacentes = verticeBuscados.getArestas();
-        while (vertex.getEdgeCount() > 0) {
+        while (vertex.getEdgeCount() > 0) { //Enquanto o vértice possuir arestas, faça:
             if (!listaAdjacentes.isEmpty()) {
                 Vertice verticeAdjacente = listaAdjacentes.get(0).getFim();
                 grafoDAO.removeAresta(verticeBuscados.getNome(), verticeAdjacente.getNome()); //Isso aqui pode ser tornar útil caso implantemos a opção de remover aresta na interface
@@ -241,7 +256,7 @@ public class Controlador {
     }
 
     /**
-     *
+     * Responsável por intermediar a exportação de um arquivo de configuração
      */
     public void exportaConfiguracoes() {
         String diretorio = interfaceI.selecionaDiretorioSalvamento();
@@ -260,35 +275,37 @@ public class Controlador {
     }
 
     /**
+     * Responsável por tratar o clique esquerdo do mause na interface gráfica,
+     * desencadeado ações adequadas
      *
-     * @param x
-     * @param y
+     * @param x Coordenada x (horizontal) de onde o clique ocorreu
+     * @param y Coordenada y (vertical) de onde o clique ocorreu
      */
     public void cliqueEsquerdo(int x, int y) {
         mxCell selecionada = (mxCell) interfaceI.getAreaComponentes().getCellAt(x, y);
 
-        if (selecionada == null) {
-            celulaSelecionada1 = celulaSelecionada2 = null;
+        if (selecionada == null) { //Se o clique for em um espaço em branco, faça:
+            celulaSelecionada1 = celulaSelecionada2 = null; //Anula qualquer informação de células selecionadas anteriormente
         }
-        else if (selecionada.isEdge()) {
-            celulaSelecionada1 = celulaSelecionada2 = null;
+        else if (selecionada.isEdge()) { //Se o clique for em um vértice da interface gráfica, faça:
+            celulaSelecionada1 = celulaSelecionada2 = null; //Anula qualquer informação de células selecionadas anteriormente
         }
-        else {
-            if (celulaSelecionada1 == null) {
+        else { //Se algum vértice for selecionado, faça:
+            if (celulaSelecionada1 == null) { //Se for o primeiro vértice selecionado, faça: 
                 celulaSelecionada1 = selecionada;
-                if (selecionada.isVertex()) {
-                    LinkedList<Vertice> caminhos = obtemMenoresCaminhos(((String) selecionada.getValue()), false);
-                    destacaCaminhosInterface(caminhos);
-                }
+                //Buscando e exibindo os menores caminhos na interface gráfica:
+                LinkedList<Vertice> caminhos = obtemMenoresCaminhos(((String) selecionada.getValue()), false);
+                destacaCaminhosInterface(caminhos);
             }
             else {
-                if (!celulaSelecionada1.equals(selecionada) && celulaSelecionada2 == null) {
+                if (!celulaSelecionada1.equals(selecionada) && celulaSelecionada2 == null) {//Se for uma segunda célula selecionada, faça:
                     celulaSelecionada2 = selecionada;
-                    removeSelecao(x, y);
+                    removeSelecao(x, y); //Desceleciona a célula atual
+                    //Destacando o menor caminho entre duas células que foram selecionadas:
                     LinkedList<Vertice> caminhos = obtemMenoresCaminhos((String) celulaSelecionada1.getValue(), true);
                     iniciaVerreduraSelecao(caminhos);
                 }
-                else {
+                else { //A primeira célula celecionada é descartada e a etapa da linha 287 é repetida, mas com outros detalhes
                     celulaSelecionada1 = selecionada;
                     LinkedList<Vertice> caminhos = obtemMenoresCaminhos(((String) selecionada.getValue()), false);
                     destacaCaminhosInterface(caminhos);
@@ -296,19 +313,11 @@ public class Controlador {
                 }
             }
         }
-        if (xA == xB && xA == Integer.MIN_VALUE) {
-            xA = x;
-            yA = y;
-        }
-        else {
-            xB = x;
-            yB = y;
-        }
-        atualizaDistanciaEuclidiana();
+        atualizaDistanciaEuclidiana(x, y);
     }
 
     /**
-     *
+     * 
      * @param x
      * @param y
      */
@@ -390,7 +399,15 @@ public class Controlador {
         }
     }
 
-    private void atualizaDistanciaEuclidiana() {
+    private void atualizaDistanciaEuclidiana(int novoX, int novoY) {
+        if (xA == xB && xA == Integer.MIN_VALUE) {
+            xA = novoX;
+            yA = novoY;
+        }
+        else {
+            xB = novoX;
+            yB = novoY;
+        }
         String coordenada1, coordenada2, distanciaE;
         if (xA == Integer.MIN_VALUE) {
             coordenada1 = coordenada2 = distanciaE = "";
