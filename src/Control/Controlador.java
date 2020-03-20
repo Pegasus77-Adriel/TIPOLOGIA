@@ -6,6 +6,8 @@ import Model.Arquivo;
 import Model.Dijkstra;
 import Model.Grafo;
 import Model.Vertice;
+import Model.mxCellArestaDAO;
+import Model.mxCellVerticeDAO;
 import Observer.ActionEventListenerAdicionaVertice;
 import Observer.ActionEventListenerConectaVertices;
 import Observer.ActionEventListenerExportaGrafo;
@@ -19,7 +21,6 @@ import View.InterfacePrincipal;
 import com.mxgraph.model.mxCell;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,8 +41,8 @@ public class Controlador {
     private int xA = Integer.MIN_VALUE, xB = Integer.MIN_VALUE, yA, yB;
 
     private Collection<Object> listaCaminhos;
-    private HashMap<String, mxCell> listaArestas;
-    private HashMap<String, mxCell> listaVertices;
+    private mxCellArestaDAO listaArestas;
+    private mxCellVerticeDAO listaVertices;
 
     private InterfacePrincipal interfaceI;
     private GrafoDAO grafoDAO;
@@ -51,8 +52,8 @@ public class Controlador {
                 new ActionEventListenerExportaGrafo(this), new ActionEventListenerImportaGrafo(this),
                 new ActionEventListenerConectaVertices(this), new ActionEventListenerSelecionaAparelho(this),
                 new ActionEventListenerAdicionaVertice(this), new EventosMouse(this), new ActionEventListenerRolagemMouse(this));
-        listaArestas = new HashMap();
-        listaVertices = new HashMap();
+        listaArestas = new mxCellArestaDAO();
+        listaVertices = new mxCellVerticeDAO();
         grafoDAO = new GrafoDAO();
         listaCaminhos = new LinkedList();
 
@@ -63,7 +64,7 @@ public class Controlador {
         String tipoVertice = tipo_aparelho;
         String nomeVertice;
         if (tipo_aparelho.equals("Internet")) {
-            if (grafoDAO.buscaVertice("Internet") != null || listaVertices.containsKey("Internet")) {
+            if (grafoDAO.buscaVertice("Internet") != null || listaVertices.contemVertice("Internet")) {
                 interfaceI.exibeMensagem("Vértice não adicionado! Só é permitido 1 vértice 'Internet' no grafo");
                 return;
             }
@@ -112,15 +113,17 @@ public class Controlador {
         int pesoLigacao = Integer.parseInt(informacoes[2]);
         Vertice v1 = grafoDAO.buscaVertice(informacoes[0]);
         Vertice v2 = grafoDAO.buscaVertice(informacoes[1]);
-        if (!grafoDAO.adicionaArestaDupla(pesoLigacao, v1, v2)
-                || insereArestaInterface(informacoes[0], informacoes[1], informacoes[2]) == null) {
+        if (!grafoDAO.adicionaArestaDupla(pesoLigacao, v1, v2)) {
             interfaceI.exibeMensagem("Aresta não adicionada! Verifique a existência dos vértices informados e de suas ligações!");
+        }
+        else {
+            insereArestaInterface(informacoes[0], informacoes[1], informacoes[2]);
         }
     }
 
     private mxCell insereVerticeInterface(String nomeVertice, String tipoVertice) {
         mxCell novoVertice = null;
-        if (listaVertices.get(nomeVertice) == null) {
+        if (listaVertices.buscaVertice(nomeVertice) == null) {
             if (tipoVertice.equalsIgnoreCase("internet")) {
                 novoVertice = interfaceI.adicionaVertice(nomeVertice, largura_vertice_Internet, altura_vertice_Internet, tipoVertice);
             }
@@ -130,8 +133,8 @@ public class Controlador {
             else if (tipoVertice.equalsIgnoreCase("rooteador")) {
                 novoVertice = interfaceI.adicionaVertice(nomeVertice, largura_vertice_Rooteador, altura_vertice_Rooteador, tipoVertice);
             }
-            listaVertices.put(nomeVertice, novoVertice);
-            if (!listaVertices.isEmpty() && primeiroVertice != null) {
+            listaVertices.adicionaVerticeI(nomeVertice, novoVertice);
+            if (!listaVertices.estaVazio() && primeiroVertice != null) {
                 interfaceI.adicionaAresta("", primeiroVertice, novoVertice, false);
             }
             else {
@@ -143,12 +146,11 @@ public class Controlador {
     }
 
     private mxCell insereArestaInterface(String nomeVertice1, String nomeVertice2, String nomeAresta) {
-        if (listaArestas.get(criaIdentificador(nomeVertice1, nomeVertice2)) == null
-                && listaArestas.get(criaIdentificador(nomeVertice2, nomeVertice1)) == null) {
-            mxCell vertice1 = listaVertices.get(nomeVertice1);
-            mxCell vertice2 = listaVertices.get(nomeVertice2);
+        if (listaArestas.buscaAresta(nomeVertice1, nomeVertice2) == null) {
+            mxCell vertice1 = listaVertices.buscaVertice(nomeVertice1);
+            mxCell vertice2 = listaVertices.buscaVertice(nomeVertice2);
             mxCell novaAresta = interfaceI.adicionaAresta(nomeAresta, vertice1, vertice2, true);
-            listaArestas.put(criaIdentificador(nomeVertice1, nomeVertice2), novaAresta);
+            listaArestas.adicionaArestaI(nomeVertice1, nomeVertice2, novaAresta);
             return novaAresta;
         }
         return null;
@@ -167,20 +169,11 @@ public class Controlador {
         celulaSelecionada1 = celulaSelecionada2 = null;
     }
 
-    private mxCell buscaERemoveArestaDe(mxCell emRemocao) {
-        for (String identificador : listaArestas.keySet()) {
-            if (listaArestas.get(identificador).equals(emRemocao)) {
-                return listaArestas.remove(identificador);
-            }
-        }
-        return null;
-    }
-
     private mxCell removeVertice(mxCell vertice) {
         mxCell removido = interfaceI.removeCelula(vertice);
         grafoDAO.removeVertice((String) removido.getValue());
-        listaVertices.remove((String) removido.getValue());
-        if (listaVertices.isEmpty()) {
+        listaVertices.removeVerticeI((String) removido.getValue());
+        if (listaVertices.estaVazio()) {
             primeiroVertice = null;
         }
         return removido;
@@ -194,7 +187,7 @@ public class Controlador {
                 Vertice verticeAdjacente = listaAdjacentes.get(0).getFim();
                 grafoDAO.removeAresta(verticeBuscados.getNome(), verticeAdjacente.getNome()); //Isso aqui pode ser tornar útil caso implantemos a opção de remover aresta na interface
             }
-            buscaERemoveArestaDe((mxCell) vertex.getEdgeAt(0));
+            listaArestas.removeArestaI((mxCell) vertex.getEdgeAt(0));
             interfaceI.removeCelula(vertex.getEdgeAt(0));
         }
     }
@@ -213,10 +206,6 @@ public class Controlador {
         else {
             interfaceI.exibeMensagem("Operação cancelada! Nenhum diretorio foi informado!");
         }
-    }
-
-    private static String criaIdentificador(String nome1, String nome2) {
-        return nome1 + "\n" + nome2;
     }
 
     public void cliqueEsquerdo(int x, int y) {
@@ -276,10 +265,9 @@ public class Controlador {
             String diretorio = interfaceI.selecionaDiretorioAbertura();
             if (diretorio != null) {
                 if (decisao == 0) {
-                    for (Object identificador : this.listaVertices.keySet().toArray()) {
-                        mxCell verticeAtual = this.listaVertices.get((String) identificador);
-                        removeArestasDeVertice(verticeAtual);
-                        removeVertice(verticeAtual);
+                    for (Object verticeAtual : listaVertices.getPercorreVertices()) {
+                        removeArestasDeVertice((mxCell) verticeAtual);
+                        removeVertice((mxCell) verticeAtual);
                     }
                 }
                 try {
@@ -372,12 +360,11 @@ public class Controlador {
         String novoCaminho = verticeAtual == null || nCaminho == -1 ? "" : nCaminho + "º caminho: ";
         while (verticeAtual != null) {
             novoCaminho += verticeAtual.getNome();
-            mxCell verticeEncontrado = listaVertices.get(verticeAtual.getNome());
+            mxCell verticeEncontrado = listaVertices.buscaVertice(verticeAtual.getNome());
             extendeCaminho(verticeEncontrado);
             if (verticeAtual.getVerticeAntecessor() != null) {
                 novoCaminho += ", " + " ";
-                extendeCaminho(listaArestas.get(criaIdentificador(verticeAtual.getNome(), verticeAtual.getVerticeAntecessor().getNome())));
-                extendeCaminho(listaArestas.get(criaIdentificador(verticeAtual.getVerticeAntecessor().getNome(), verticeAtual.getNome())));
+                extendeCaminho(listaArestas.buscaAresta(verticeAtual.getNome(), verticeAtual.getVerticeAntecessor().getNome()));
             }
             verticeAtual = verticeAtual.getVerticeAntecessor();
         }
