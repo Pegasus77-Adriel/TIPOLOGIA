@@ -1,4 +1,4 @@
-package Model;
+package DAO;
 
 import com.mxgraph.model.mxCell;
 import java.util.HashMap;
