@@ -399,11 +399,11 @@ public class Controlador {
     private LinkedList<Vertice> obtemMenoresCaminhos(String nomeVertice, boolean apenasTerminal) {
         Dijkstra d = new Dijkstra();
         Vertice buscado = grafo.buscaVertice(nomeVertice);
-        Grafo gerado = (!apenasTerminal || buscado.isTerminal()) ? d.obtemMenoresCaminhos(buscado, grafo.getGrafo()) : null;
+        LinkedList<Vertice> gerado = (!apenasTerminal || buscado.isTerminal()) ? d.obtemMenoresCaminhos(buscado, grafo.getVertices()) : null;
         if (gerado == null) {
             return null;
         }
-        return gerado.getVertices();
+        return gerado;
     }
 
     private void iniciaVerreduraSelecao(LinkedList<Vertice> caminhos) {

@@ -1,7 +1,7 @@
 
 import Model.Dijkstra;
-import Model.Grafo;
 import Model.Vertice;
+import java.util.LinkedList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,10 +41,10 @@ public class DijkstraTest {
     public void testObtemMenoresCaminhos() {
         System.out.println("obtemMenoresCaminhos");
         Vertice pontoPartida = null;
-        Grafo conjuntoVertices = null;
+        LinkedList<Vertice> conjuntoVertices = null;
         Dijkstra instance = new Dijkstra();
-        Grafo expResult = null;
-        Grafo result = instance.obtemMenoresCaminhos(pontoPartida, conjuntoVertices);
+        LinkedList<Vertice> expResult = null;
+        LinkedList<Vertice> result = instance.obtemMenoresCaminhos(pontoPartida, conjuntoVertices);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
