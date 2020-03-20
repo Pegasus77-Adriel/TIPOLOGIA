@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * Classe responsável por chamar os métodos responsáveis por determinar qual
  * tipo de vértice será adicionado ao programa
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class ActionEventListenerSelecionaAparelho implements ActionListener {
 

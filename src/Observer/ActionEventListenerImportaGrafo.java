@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * Classe responsável por chamar os métodos responsáveis por importar o arquivo
  * de configuração
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class ActionEventListenerImportaGrafo implements ActionListener {
 

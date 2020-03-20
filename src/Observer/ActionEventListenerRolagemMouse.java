@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelListener;
 /**
  * Classe responsável por chamar os métodos responsáveis pelo zoom no grafo
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class ActionEventListenerRolagemMouse implements MouseWheelListener {
 

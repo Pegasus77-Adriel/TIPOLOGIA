@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * Classe responsável por chamar os métodos responsáveis por exportar os
  * arquivos de configuração
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class ActionEventListenerExportaGrafo implements ActionListener {
 
