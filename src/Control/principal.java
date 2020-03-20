@@ -1,4 +1,4 @@
-package Controll;
+package Control;
 
 /**
  * Classe principal do projeto, responsável pela instância da classe

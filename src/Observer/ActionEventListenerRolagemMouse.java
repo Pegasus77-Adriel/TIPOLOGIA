@@ -1,6 +1,6 @@
 package Observer;
 
-import Controll.Controlador;
+import Control.Controlador;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 

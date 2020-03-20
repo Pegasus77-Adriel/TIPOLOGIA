@@ -1,4 +1,4 @@
-package Controll;
+package Control;
 
 import DAO.GrafoDAO;
 import Model.Aresta;
