@@ -448,11 +448,17 @@ public class InterfacePrincipal extends JFrame {
         grafo.setSelectionCells(caminhos);
     }
 
+    /**
+     * Reduz o zoom dos componentes da área do grafo
+     */
     public void reduzZoom() {
         areaCompGrafo.zoomOut();
         areaCompGrafo.zoomAndCenter();
     }
 
+    /**
+     * Aumenta o zoom dos componentes da área do grafo
+     */
     public void aumentaZoom() {
         areaCompGrafo.zoomIn();
         areaCompGrafo.zoomAndCenter();
