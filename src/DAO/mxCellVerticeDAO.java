@@ -35,7 +35,7 @@ public class mxCellVerticeDAO {
         return vertices.remove(nomeVertice);
     }
 
-    public Object[] getPercorreVertices() {
+    public Object[] getVertices() {
         return vertices.values().toArray();
     }
 }
