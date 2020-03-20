@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 /**
  * Classe responsável por chamar os métodos responsáveis por tratar os cliques do mouse
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class EventosMouse extends MouseAdapter {
 

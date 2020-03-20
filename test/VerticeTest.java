@@ -9,7 +9,9 @@ import static org.junit.Assert.*;
  */
 public class VerticeTest {
 
-    
+    /**
+     *  Teste do Método de retornar peso de uma aresta
+     */
     @Test
     public void testGetPesoLigacaoCom() {
         System.out.println("getPesoLigacaoCom");

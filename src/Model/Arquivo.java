@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Marcos
+ * @author Marcos e Adriel
  */
 public class Arquivo {
 

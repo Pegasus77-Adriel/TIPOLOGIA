@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * Classe responsável por chamar os métodos responsáveis pela adição de um
  * vértice no sistema
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class ActionEventListenerAdicionaVertice implements ActionListener {
 

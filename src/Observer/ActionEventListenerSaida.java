@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Classe responsável por chamar os métodos responsáveis pela saída do programa
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class ActionEventListenerSaida implements ActionListener {
 

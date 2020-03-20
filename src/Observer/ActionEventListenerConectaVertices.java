@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  * Classe responsável por chamar os métodos responsáveis pela adição de uma
  * aresta no sistema
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class ActionEventListenerConectaVertices implements ActionListener {
 

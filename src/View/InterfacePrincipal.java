@@ -29,7 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * Classe responsável pela interface gráfica e pelos componentes visuais do
  * grafo
  *
- * @author Marcos Vinícius
+ * @author Marcos Vinícius e Adriel
  */
 public class InterfacePrincipal extends JFrame {
 
@@ -391,6 +391,10 @@ public class InterfacePrincipal extends JFrame {
         return removida;
     }
 
+    /**
+     *  Método de exibir a listas dos caminho
+     * @param corpoTexto Corpo do texto que será exibida
+     */
     public void exibeListasCaminhos(String corpoTexto) {
         JFrame novaJanela = new JFrame("Lista de caminhos");
         defineIcone(novaJanela);
@@ -407,6 +411,10 @@ public class InterfacePrincipal extends JFrame {
         novaJanela.setVisible(true); //Torna a janela visível
     }
 
+    /**
+     * método de exbi mensagem em relação ao dialogo de importar configuraçoes
+     * @return Rotorna um método para emiti mensagem para o usuário
+     */
     public int exibeDialogoImportArquivo() {
         Object[] opcoes = {"Substituir configuração atual", "Mesclar configurações", "Cancelar importação"};
         return (JOptionPane.showOptionDialog(null, "Você está tentando importar uma nova configuração enquanto outra já está sendo exibida!"
@@ -416,10 +424,18 @@ public class InterfacePrincipal extends JFrame {
 
     }
 
+    /**
+     * Método de remover celeção selecionada
+     * @param selecionada É a mcell selecionada
+     */
     public void removeCelecao(mxCell selecionada) {
         grafo.removeSelectionCell(selecionada);
     }
 
+    /**
+     * Método de inserir seleção selecionada
+     * @param caminhos é lista de caminho para insreção
+     */
     public void insereSelecao(Object[] caminhos) {
         grafo.setSelectionCells(caminhos);
     }
