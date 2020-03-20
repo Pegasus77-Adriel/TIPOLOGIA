@@ -1,0 +1,22 @@
+Exemplo Arquivo configuração:
+No_Inicio,Terminal,Destino,Peso
+E,sim,G,3
+E,sim,F,6
+A,sim,F,2
+F,não,A,2
+F,não,E,6
+F,não,G,10
+F,não,Internet,15
+Internet,não,F,15
+G,não,F,10
+G,não,E,3
+G,não,D,2
+G,não,H,6
+G,não,B,4
+B,sim,G,4
+B,sim,H,7
+D,sim,G,2
+H,não,B,7
+H,não,G,6
+H,não,C,1
+C,sim,H,1
