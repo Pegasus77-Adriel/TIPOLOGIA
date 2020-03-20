@@ -25,6 +25,10 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Adriel
+ * @author Marcos Vinícius
+ */
 public class Controlador {
 
     private final int altura_vertice_Rooteador = 30;
@@ -47,22 +51,36 @@ public class Controlador {
     private InterfacePrincipal interfaceI;
     private GrafoDAO grafoDAO;
 
+    /**
+     * Construtor da classe e responsável por inicializar a interface visual
+     * junto com as classes do DAO
+     *
+     * @param exibirInterface Caso seja true, a interface do programa estará
+     * visível. O oposto disse acontece caso o valor seja false
+     */
     public Controlador(boolean exibirInterface) {
+        //Instânciando a interface:
         interfaceI = new InterfacePrincipal(new ActionEventListenerRemove(this), new ActionEventListenerSaida(),
                 new ActionEventListenerExportaGrafo(this), new ActionEventListenerImportaGrafo(this),
                 new ActionEventListenerConectaVertices(this), new ActionEventListenerSelecionaAparelho(this),
                 new ActionEventListenerAdicionaVertice(this), new EventosMouse(this), new ActionEventListenerRolagemMouse(this));
+        //Instânciando algumas classes que armazenarão dados:
         listaArestas = new mxCellArestaDAO();
         listaVertices = new mxCellVerticeDAO();
         grafoDAO = new GrafoDAO();
         listaCaminhos = new LinkedList();
 
-        interfaceI.setVisible(exibirInterface);
+        interfaceI.setVisible(exibirInterface); //Decide se a interface será ou não visível
     }
 
+    /**
+     * Adiciona um novo vértice no sistema a partir das informações enviadas
+     * pelo usuário
+     */
     public void adicionaVertice() {
         String tipoVertice = tipo_aparelho;
         String nomeVertice;
+        //Há um tratamento especial para o vértice Internet:
         if (tipo_aparelho.equals("Internet")) {
             if (grafoDAO.buscaVertice("Internet") != null || listaVertices.contemVertice("Internet")) {
                 interfaceI.exibeMensagem("Vértice não adicionado! Só é permitido 1 vértice 'Internet' no grafo");
@@ -78,11 +96,13 @@ public class Controlador {
             }
         }
 
-        Pattern conjuntoBits = Pattern.compile("\\w");
-        Matcher buscadorBits = conjuntoBits.matcher(nomeVertice);
+        Pattern conjuntoBits = Pattern.compile("\\w"); /*Compila um conjunto de bits correspondente 
+        aos caracteres válidos ou visuais = (\\w)*/
+        Matcher buscadorBits = conjuntoBits.matcher(nomeVertice); /*Inicia a verificação dentro desse conjunto de bits
+        para saber se só há caractere na String "nomeVertices" que se encontram nesse grupo*/
 
-        if (nomeVertice != null && buscadorBits.find()) {
-            Vertice novo = new Vertice(nomeVertice, tipoVertice.equalsIgnoreCase("computador"));
+        if (nomeVertice != null && buscadorBits.find()) { //Se o nome do vértice não for nulo e conter algum caractere visual, faça:
+            Vertice novo = new Vertice(nomeVertice, tipoVertice.equalsIgnoreCase("computador")); 
             if (!grafoDAO.adicionaVertice(novo)) {
                 interfaceI.exibeMensagem("O vértice '" + nomeVertice + "' não será adicionado porque já existe no sistema!");
             }
@@ -95,12 +115,15 @@ public class Controlador {
         }
     }
 
+    /**
+     * Método responsável pela adição de arestas no sistema
+     */
     public void adicionaAresta() {
         String[] informacoes = interfaceI.recebeInformacoesLigacao();
         Pattern executor1 = Pattern.compile("\\w");
         Matcher buscador1 = executor1.matcher(informacoes[0]);
         Matcher buscador2 = executor1.matcher(informacoes[1]);
-        Pattern executor2 = Pattern.compile("\\D");
+        Pattern executor2 = Pattern.compile("\\D"); //Reúne um conjunto de bits 
         Matcher buscador3 = executor2.matcher(informacoes[2]);
         if (!buscador2.find() || !buscador1.find()) {
             interfaceI.exibeMensagem("Operação interrompida! Nome de vértice informado é inválido!");
@@ -156,6 +179,9 @@ public class Controlador {
         return null;
     }
 
+    /**
+     *
+     */
     public void removeCelula() {
         mxCell celula = celulaSelecionada2 == null ? celulaSelecionada1 : celulaSelecionada2;
         if (celula != null) {
@@ -192,6 +218,9 @@ public class Controlador {
         }
     }
 
+    /**
+     *
+     */
     public void exportaConfiguracoes() {
         String diretorio = interfaceI.selecionaDiretorioSalvamento();
         if (diretorio != null) {
@@ -208,6 +237,11 @@ public class Controlador {
         }
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void cliqueEsquerdo(int x, int y) {
         mxCell selecionada = (mxCell) interfaceI.getAreaComponentes().getCellAt(x, y);
 
@@ -251,11 +285,19 @@ public class Controlador {
         atualizaDistanciaEuclidiana();
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void removeSelecao(int x, int y) {
         mxCell selecionada = (mxCell) interfaceI.getAreaComponentes().getCellAt(x, y);
         interfaceI.removeCelecao(selecionada);
     }
 
+    /**
+     *
+     */
     public void importaConfiguracoes() {
         int decisao = -1;
         if (!this.grafoDAO.estaVazio()) {
@@ -308,6 +350,11 @@ public class Controlador {
         }
     }
 
+    /**
+     *
+     * @param rotacaoRoda
+     * @param ctrlPressionado
+     */
     public void defineZoom(int rotacaoRoda, boolean ctrlPressionado) {
         if (ctrlPressionado) {
             if (rotacaoRoda > 0) {
@@ -379,6 +426,9 @@ public class Controlador {
         }
     }
 
+    /**
+     *
+     */
     public void defineItemSelecionado() {
         tipo_aparelho = interfaceI.getConteudoCombobox();
     }

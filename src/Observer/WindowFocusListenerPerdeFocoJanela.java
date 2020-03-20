@@ -29,7 +29,7 @@ public class WindowFocusListenerPerdeFocoJanela implements WindowFocusListener {
     }
 
     /**
-     * Método de perder o foco da janela
+     * Método de fechar a janela sempre que ela perder o foco
      * @param we O evento
      */
     @Override
