@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Adryel
+ * @author Adryel e Marcos
  */
 public class Vertice {
 

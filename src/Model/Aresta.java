@@ -2,7 +2,7 @@ package Model;
 
 /**
  *
- * @author Adryel
+ * @author Adryel e Marcos
  */
 public class Aresta {
     
