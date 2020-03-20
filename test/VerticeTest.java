@@ -1,6 +1,5 @@
-package Model;
 
-import java.util.LinkedList;
+import Model.Vertice;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
