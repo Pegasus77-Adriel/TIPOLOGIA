@@ -44,7 +44,7 @@ public class Controlador {
     private HashMap<String, mxCell> listaVertices;
 
     private InterfacePrincipal interfaceI;
-    private GrafoDAO grafo;
+    private GrafoDAO grafoDAO;
 
     public Controlador(boolean exibirInterface) {
         interfaceI = new InterfacePrincipal(new ActionEventListenerRemove(this), new ActionEventListenerSaida(),
@@ -53,7 +53,7 @@ public class Controlador {
                 new ActionEventListenerAdicionaVertice(this), new EventosMouse(this), new ActionEventListenerRolagemMouse(this));
         listaArestas = new HashMap();
         listaVertices = new HashMap();
-        grafo = new GrafoDAO();
+        grafoDAO = new GrafoDAO();
         listaCaminhos = new LinkedList();
 
         interfaceI.setVisible(exibirInterface);
@@ -63,7 +63,7 @@ public class Controlador {
         String tipoVertice = tipo_aparelho;
         String nomeVertice;
         if (tipo_aparelho.equals("Internet")) {
-            if (grafo.buscaVertice("Internet") != null || listaVertices.containsKey("Internet")) {
+            if (grafoDAO.buscaVertice("Internet") != null || listaVertices.containsKey("Internet")) {
                 interfaceI.exibeMensagem("Vértice não adicionado! Só é permitido 1 vértice 'Internet' no grafo");
                 return;
             }
@@ -82,7 +82,7 @@ public class Controlador {
 
         if (nomeVertice != null && buscadorBits.find()) {
             Vertice novo = new Vertice(nomeVertice, tipoVertice.equalsIgnoreCase("computador"));
-            if (!grafo.adicionaVertice(novo)) {
+            if (!grafoDAO.adicionaVertice(novo)) {
                 interfaceI.exibeMensagem("O vértice '" + nomeVertice + "' não será adicionado porque já existe no sistema!");
             }
             else {
@@ -110,9 +110,9 @@ public class Controlador {
             return;
         }
         int pesoLigacao = Integer.parseInt(informacoes[2]);
-        Vertice v1 = grafo.buscaVertice(informacoes[0]);
-        Vertice v2 = grafo.buscaVertice(informacoes[1]);
-        if (!grafo.adicionaArestaDupla(pesoLigacao, v1, v2)
+        Vertice v1 = grafoDAO.buscaVertice(informacoes[0]);
+        Vertice v2 = grafoDAO.buscaVertice(informacoes[1]);
+        if (!grafoDAO.adicionaArestaDupla(pesoLigacao, v1, v2)
                 || insereArestaInterface(informacoes[0], informacoes[1], informacoes[2]) == null) {
             interfaceI.exibeMensagem("Aresta não adicionada! Verifique a existência dos vértices informados e de suas ligações!");
         }
@@ -178,7 +178,7 @@ public class Controlador {
 
     private mxCell removeVertice(mxCell vertice) {
         mxCell removido = interfaceI.removeCelula(vertice);
-        grafo.removeVertice((String) removido.getValue());
+        grafoDAO.removeVertice((String) removido.getValue());
         listaVertices.remove((String) removido.getValue());
         if (listaVertices.isEmpty()) {
             primeiroVertice = null;
@@ -187,12 +187,12 @@ public class Controlador {
     }
 
     private void removeArestasDeVertice(mxCell vertex) {
-        Vertice verticeBuscados = grafo.buscaVertice((String) vertex.getValue());
+        Vertice verticeBuscados = grafoDAO.buscaVertice((String) vertex.getValue());
         LinkedList<Aresta> listaAdjacentes = verticeBuscados.getArestas();
         while (vertex.getEdgeCount() > 0) {
             if (!listaAdjacentes.isEmpty()) {
                 Vertice verticeAdjacente = listaAdjacentes.get(0).getFim();
-                grafo.removeAresta(verticeBuscados.getNome(), verticeAdjacente.getNome()); //Isso aqui pode ser tornar útil caso implantemos a opção de remover aresta na interface
+                grafoDAO.removeAresta(verticeBuscados.getNome(), verticeAdjacente.getNome()); //Isso aqui pode ser tornar útil caso implantemos a opção de remover aresta na interface
             }
             buscaERemoveArestaDe((mxCell) vertex.getEdgeAt(0));
             interfaceI.removeCelula(vertex.getEdgeAt(0));
@@ -203,7 +203,7 @@ public class Controlador {
         String diretorio = interfaceI.selecionaDiretorioSalvamento();
         if (diretorio != null) {
             try {
-                Arquivo.trasfereParaArquivo(diretorio, grafo.getGrafo());
+                Arquivo.trasfereParaArquivo(diretorio, grafoDAO.getGrafo());
                 interfaceI.exibeMensagem("As configurações foram salvas com sucesso!");
             }
             catch (IOException | ExceptionInInitializerError ex) {
@@ -269,7 +269,7 @@ public class Controlador {
 
     public void importaConfiguracoes() {
         int decisao = -1;
-        if (!this.grafo.estaVazio()) {
+        if (!this.grafoDAO.estaVazio()) {
             decisao = interfaceI.exibeDialogoImportArquivo();
         }
         if (decisao != 2) {
@@ -283,8 +283,8 @@ public class Controlador {
                     }
                 }
                 try {
-                    Arquivo.trasfereParaGrafo(diretorio, grafo.getGrafo());
-                    trasfereModelParaInterface(grafo.getGrafo());
+                    Arquivo.trasfereParaGrafo(diretorio, grafoDAO.getGrafo());
+                    trasfereModelParaInterface(grafoDAO.getGrafo());
                     interfaceI.exibeMensagem("Suas configurações foram importadas com sucesso!");
                 }
                 catch (IOException | ExceptionInInitializerError ex) {
@@ -398,11 +398,8 @@ public class Controlador {
 
     private LinkedList<Vertice> obtemMenoresCaminhos(String nomeVertice, boolean apenasTerminal) {
         Dijkstra d = new Dijkstra();
-        Vertice buscado = grafo.buscaVertice(nomeVertice);
-        LinkedList<Vertice> gerado = (!apenasTerminal || buscado.isTerminal()) ? d.obtemMenoresCaminhos(buscado, grafo.getVertices()) : null;
-        if (gerado == null) {
-            return null;
-        }
+        Vertice buscado = grafoDAO.buscaVertice(nomeVertice);
+        LinkedList<Vertice> gerado = (!apenasTerminal || buscado.isTerminal()) ? d.obtemMenoresCaminhos(buscado, grafoDAO.getVertices()) : null;
         return gerado;
     }
 
